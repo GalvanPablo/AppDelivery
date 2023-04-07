@@ -1,16 +1,21 @@
 import React from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 
-import { Input, Button } from '../components'
+import { Input, Button, SwitchButton } from '../components'
 
 import { useDispatch } from 'react-redux'
 import { signup, login } from '../store/actions/auth.actions'
 
-const Login = () => {
+import { useRoute } from '@react-navigation/native'
+
+const Access = ({ navigation }) => {
     const dispatch = useDispatch();
 
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
+
+    const route = useRoute()
+    const tipoAcceso = route.params?.tipo
 
     const [authType, setAuthType] = React.useState('Iniciar Sesión')
 
@@ -22,9 +27,13 @@ const Login = () => {
         }
     }
 
+    const handelSwitchAction = (firstOption) => {
+        setAuthType(firstOption ? 'Iniciar Sesión' : 'Registrarse')
+    }
+
     return (
         <View style={styles.screen}>
-            <Text>{authType}</Text>
+            <SwitchButton option1={"Iniciar Sesión"} option2={"Registrarse"} onPress={handelSwitchAction} firstOption={tipoAcceso === 'Iniciar Sesión' ? true : false }/>
             <View style={styles.inputContainer}>
                 <Input
                     type='email'
@@ -41,19 +50,23 @@ const Login = () => {
                 />
             </View>
             <Button
-                title='Iniciar sesion'
+                title={authType}
                 onPress={() => handleAuth()}
             />
+            {authType === 'Iniciar Sesión' &&
+                <Pressable onPress={() => alert('Recuperar contraseña')}>
+                    <Text>¿Olvidaste tu contraseña?</Text>
+                </Pressable>
+            }
         </View>
     )
 }
 
-export default Login
+export default Access
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center'
     },
     inputContainer: {
