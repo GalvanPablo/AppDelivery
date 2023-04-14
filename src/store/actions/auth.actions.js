@@ -1,4 +1,4 @@
-import { AUTH_SIGNUP_URL, AUTH_LOGIN_URL, USER_DATA_URL, AUTH_UPDATE_URL } from "../../constants/database";
+import { AUTH_SIGNUP_URL, AUTH_LOGIN_URL, API_URL } from "../../constants/database";
 
 export const SIGNUP = 'SIGNUP';
 export const signup = (email, password) => async dispatch => {
@@ -67,56 +67,39 @@ export const login = (email, password) => async dispatch => {
     
         const data = await response.json();
 
-        
-        // Actualizar el usuario con el campo "address"
-        
-        // fetch(AUTH_UPDATE_URL, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         idToken: data.idToken,
-        //         address: "123 Main St, Anytown USA",
-        //     }),
-        // })
-        // .then((response) => response.json())
-        // .then((data) => {
-        //     if(data.error) {
-        //         console.error("Error al actualizar el usuario: ", data.error);
-        //     } else {
-        //         console.log("Usuario actualizado: ", data);
-        //     }
-        // })
-        // .catch((error) => {
-        //     console.error("Error al actualizar el usuario: ", error);
-        // });
+        console.log("Subiendo datos del usuario");
+        console.log("userId: " + data.localId);
 
-        ////////////////////////
+        const responseDatos = await fetch(`${API_URL}usuarios/${data.localId}.json`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre: "Pablo",
+                apellido: "Galvan",
+                direcciones: [
+                    {
+                        nombre: "casa",
+                        direccion: "calle 1",
+                        lat: 0,
+                        lng: 0
+                    },
+                ]
+            }),
+        });
 
-        // Conseguir datos del usuario
+        if(!responseDatos.ok) {
+            const errorResData = await responseDatos.json();
+            const error = errorResData.error.message;
+            throw new Error('Algo salió mal!\n\n' + error);
+        }else{
+            console.log("Se pudieron subir los datos del usuario");
+            const dataDatos = await responseDatos.json();
+            console.log("datos: \n\n" + dataDatos);
+        }
+            
 
-        // fetch(USER_DATA_URL, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         idToken: data.idToken,
-        //     }),
-        // })
-        // .then((response) => response.json())
-        // .then((data) => {
-        //     console.log("----------------- Datos del usuario -----------------");
-        //     console.log(data);
-        //     console.log("-----------------------------------------------------");
-        // })
-        // .catch((error) => {
-        //     console.error("Error:", error);
-        // });
-
-        //////////////////////////
-        
         dispatch({
             type: LOGIN,
             token: data.idToken,
