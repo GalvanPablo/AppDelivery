@@ -1,4 +1,4 @@
-import { AUTH_SIGNUP_URL, AUTH_LOGIN_URL } from "../../constants/database";
+import { AUTH_SIGNUP_URL, AUTH_LOGIN_URL, USER_DATA_URL, AUTH_UPDATE_URL } from "../../constants/database";
 
 export const SIGNUP = 'SIGNUP';
 export const signup = (email, password) => async dispatch => {
@@ -66,7 +66,56 @@ export const login = (email, password) => async dispatch => {
         }
     
         const data = await response.json();
-        console.log(data);
+
+        
+        // Actualizar el usuario con el campo "address"
+        
+        // fetch(AUTH_UPDATE_URL, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         idToken: data.idToken,
+        //         address: "123 Main St, Anytown USA",
+        //     }),
+        // })
+        // .then((response) => response.json())
+        // .then((data) => {
+        //     if(data.error) {
+        //         console.error("Error al actualizar el usuario: ", data.error);
+        //     } else {
+        //         console.log("Usuario actualizado: ", data);
+        //     }
+        // })
+        // .catch((error) => {
+        //     console.error("Error al actualizar el usuario: ", error);
+        // });
+
+        ////////////////////////
+
+        // Conseguir datos del usuario
+
+        // fetch(USER_DATA_URL, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         idToken: data.idToken,
+        //     }),
+        // })
+        // .then((response) => response.json())
+        // .then((data) => {
+        //     console.log("----------------- Datos del usuario -----------------");
+        //     console.log(data);
+        //     console.log("-----------------------------------------------------");
+        // })
+        // .catch((error) => {
+        //     console.error("Error:", error);
+        // });
+
+        //////////////////////////
         
         dispatch({
             type: LOGIN,
