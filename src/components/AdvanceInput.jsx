@@ -214,6 +214,7 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 10,
         marginBottom: 5,
+        width: "100%",
     },
     label: {
         marginVertical: 5,
@@ -231,8 +232,8 @@ const styles = StyleSheet.create({
         minWidth: 150,
         padding: 5,
         textAlign: "left",
-        borderBottomWidth: 1,
         borderColor: "#ccc",
+        borderWidth: 1,
     },
     errorContainer: {
         marginVertical: 2,

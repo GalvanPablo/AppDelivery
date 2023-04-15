@@ -32,7 +32,8 @@ export const signup = (email, password) => async dispatch => {
         dispatch({
             type: SIGNUP,
             token: data.idToken,
-            userId: data.localId
+            userId: data.localId,
+            email: data.email
         });
     } catch (error) {
         console.error(error);
@@ -106,7 +107,8 @@ export const login = (email, password) => async dispatch => {
         dispatch({
             type: LOGIN,
             token: data.idToken,
-            userId: data.localId
+            userId: data.localId,
+            email: data.email
         });
         dispatch(getUserData(data.localId));
     } catch (error) {

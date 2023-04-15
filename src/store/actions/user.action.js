@@ -23,7 +23,6 @@ export const getUserData = (userId) => async dispatch => {
             dispatch({
                 type: GET_USER_DATA,
                 nombre: data.nombre,
-                apellido: data.apellido,
                 direcciones: data.direcciones
             });   
         }
@@ -31,5 +30,47 @@ export const getUserData = (userId) => async dispatch => {
     }catch(error){
         console.error(error);
         console.log("Error en getUserData")
+    }
+}
+
+export const UPDATE_USER_DATA = 'UPDATE_USER_DATA';
+export const updateUserData = (userId, nombre, telefono, foto, direcciones) => async dispatch => {
+    try{
+        const response = await fetch(`${API_URL}usuarios/${userId}.json`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre,
+                telefono,
+                foto,
+                direcciones
+            })
+        });
+        
+        if(!response.ok){
+            const errorResData = await response.json();
+            const errorId = errorResData.error.message;
+            let message = 'Algo salió mal!';
+            throw new Error(message, errorId);
+        }
+
+        const data = await response.json();
+
+        if(data){
+            console.log("Se actualizaron los datos del usuario")
+            dispatch({
+                type: UPDATE_USER_DATA,
+                nombre,
+                telefono,
+                direcciones
+            });
+            dispatch(getUserData(userId));  
+        }
+
+    }catch(error){
+        console.error(error);
+        console.log("Error en updateUserData")
     }
 }

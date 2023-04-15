@@ -2,8 +2,8 @@ import { GET_USER_DATA } from "../actions/user.action";
 
 const initialState = {
     nombre: "",
-    apellido: "",
     telefono: "",
+    foto: "",
     direcciones: [],
 }
 
@@ -13,7 +13,6 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 nombre: action.nombre,
-                apellido: action.apellido,
                 direcciones: action.direcciones
             }
         default:
