@@ -1,9 +1,11 @@
-import Input from "./Input";
+import AdvanceInput from "./AdvanceInput";
 import Button from "./Button";
 import SwitchButton from "./SwitchButton";
+import ImageSelector from "./ImageSelector";
 
 export {
-    Input,
+    AdvanceInput,
     Button,
     SwitchButton,
+    ImageSelector
 };

@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 
-import { Input, Button, SwitchButton } from '../components'
+import { AdvanceInput, Button, SwitchButton } from '../components'
 
 import { useDispatch } from 'react-redux'
 import { signup, login } from '../store/actions/auth.actions'
@@ -35,15 +35,15 @@ const Access = ({ navigation }) => {
         <View style={styles.screen}>
             <SwitchButton option1={"Iniciar Sesión"} option2={"Registrarse"} onPress={handelSwitchAction} firstOption={tipoAcceso === 'Iniciar Sesión' ? true : false }/>
             <View style={styles.inputContainer}>
-                <Input
+                <AdvanceInput
                     type='email'
-                    label={'Email'}
+                    placeholder={'Email'}
                     errorText={'Email invalido'}
                     onInputChange={(data) => setEmail(data.isValid ? data.value : '')}
                 />
-                <Input
+                <AdvanceInput
                     type='password'
-                    label={'Contraseña'}
+                    placeholder={'Contraseña'}
                     errorText={'Contraseña invalida'}
                     onInputChange={(data) => setPassword(data.isValid ? data.value : '')}
                     minLength={8}
