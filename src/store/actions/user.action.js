@@ -23,6 +23,8 @@ export const getUserData = (userId) => async dispatch => {
             dispatch({
                 type: GET_USER_DATA,
                 nombre: data.nombre,
+                telefono: data.telefono,
+                foto: data.foto,
                 direcciones: data.direcciones
             });   
         }
@@ -64,6 +66,7 @@ export const updateUserData = (userId, nombre, telefono, foto, direcciones) => a
                 type: UPDATE_USER_DATA,
                 nombre,
                 telefono,
+                foto,
                 direcciones
             });
             dispatch(getUserData(userId));  

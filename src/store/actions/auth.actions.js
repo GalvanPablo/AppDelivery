@@ -103,15 +103,13 @@ export const login = (email, password) => async dispatch => {
         //     console.log("datos: \n\n" + dataDatos);
         // }
             
+        dispatch({
+            type: LOGIN,
+            token: data.idToken,
+            userId: data.localId,
+            email: data.email
+        });
         dispatch(getUserData(data.localId));
-        setTimeout(() => {
-            dispatch({
-                type: LOGIN,
-                token: data.idToken,
-                userId: data.localId,
-                email: data.email
-            });
-        }, 250); // tiempo hasta que se carguen los datos del usuario
     } catch (error) {
         console.error(error);
     }

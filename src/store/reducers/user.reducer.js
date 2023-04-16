@@ -13,7 +13,9 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 nombre: action.nombre,
-                direcciones: action.direcciones
+                telefono: action.telefono,
+                foto: action.foto || null,
+                direcciones: action.direcciones || null
             }
         default:
             return state;
