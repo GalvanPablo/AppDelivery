@@ -1,8 +1,8 @@
 import React from 'react'
 import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native'
 
-import { Button } from '../components'
-import COLORS from '../constants/colors'
+import { Button } from '../../components'
+import COLORS from '../../constants/colors'
 
 const Welcome = ({ navigation }) => {
     return (

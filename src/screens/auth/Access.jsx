@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 
-import { AdvanceInput, Button, SwitchButton } from '../components'
+import { AdvanceInput, Button, SwitchButton } from '../../components'
 
 import { useDispatch } from 'react-redux'
-import { signup, login } from '../store/actions/auth.actions'
+import { signup, login } from '../../store/actions/auth.actions'
 
 import { useRoute } from '@react-navigation/native'
 

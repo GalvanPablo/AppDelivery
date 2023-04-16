@@ -3,5 +3,5 @@ import Access from "./Access";
 
 export {
     Welcome,
-    Access,
+    Access
 };

@@ -3,7 +3,9 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 
 import AuthStack from './AuthStack'
-import Home from '../screens/Home'
+import TabNav from './TabNav'
+
+
 import EditUserData from '../screens/EditUserData'
 
 import { useSelector } from 'react-redux'
@@ -29,7 +31,7 @@ const MainNav = () => {
 
     return (
         <NavigationContainer>
-            {!isAuthenticated ? <AuthStack /> : !userHaveData ? <EditUserData /> : <Home />}
+            {!isAuthenticated ? <AuthStack /> : !userHaveData ? <EditUserData /> : <TabNav />}
         </NavigationContainer>
     )
 }
