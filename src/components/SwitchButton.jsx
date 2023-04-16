@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     text: {
         color: COLORS.gray,
         fontSize: 18,
+        fontFamily: 'NunitoSans_400Regular',
     },
     textActive: {
         color: COLORS.white,

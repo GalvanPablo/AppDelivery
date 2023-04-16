@@ -234,6 +234,7 @@ const styles = StyleSheet.create({
         textAlign: "left",
         borderColor: "#ccc",
         borderWidth: 1,
+        fontFamily: 'NunitoSans_400Regular',
     },
     errorContainer: {
         marginVertical: 2,
@@ -241,5 +242,6 @@ const styles = StyleSheet.create({
     errorText: {
         color: "red",
         fontSize: 13,
+        fontFamily: 'NunitoSans_400Regular',
     }
 })

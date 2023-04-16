@@ -1,12 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const History = () => {
-  return (
-    <View>
-      <Text>History</Text>
-    </View>
-  )
+    return (
+        <SafeAreaView>
+            <View>
+                <Text>History</Text>
+            </View>
+        </SafeAreaView>
+    )
 }
 
 export default History

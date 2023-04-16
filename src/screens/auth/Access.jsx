@@ -40,6 +40,11 @@ const Access = ({ navigation }) => {
                     placeholder={'Email'}
                     errorText={'Email invalido'}
                     onInputChange={(data) => setEmail(data.isValid ? data.value : '')}
+                    errorPosition='top'
+                    inputStyle={{
+                        borderWidth: 0,
+                        borderBottomWidth: 1,
+                    }}
                 />
                 <AdvanceInput
                     type='password'
@@ -47,6 +52,11 @@ const Access = ({ navigation }) => {
                     errorText={'Contraseña invalida'}
                     onInputChange={(data) => setPassword(data.isValid ? data.value : '')}
                     minLength={8}
+                    errorPosition='top'
+                    inputStyle={{
+                        borderWidth: 0,
+                        borderBottomWidth: 1,
+                    }}
                 />
             </View>
             <Button
@@ -55,7 +65,7 @@ const Access = ({ navigation }) => {
             />
             {authType === 'Iniciar Sesión' &&
                 <Pressable onPress={() => alert('Recuperar contraseña')}>
-                    <Text>¿Olvidaste tu contraseña?</Text>
+                    <Text style={styles.text}>¿Olvidaste tu contraseña?</Text>
                 </Pressable>
             }
         </View>
@@ -73,4 +83,9 @@ const styles = StyleSheet.create({
         width: '80%',
         marginVertical: 10
     },
+    text: {
+        fontFamily: 'NunitoSans_400Regular',
+        fontSize: 16,
+        marginVertical: 10
+    }
 })

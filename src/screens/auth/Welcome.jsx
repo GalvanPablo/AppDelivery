@@ -7,7 +7,6 @@ import COLORS from '../../constants/colors'
 const Welcome = ({ navigation }) => {
     return (
         <ImageBackground source={{uri: 'https://images.unsplash.com/photo-1624855600799-ac8e8bddd1da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'}} style={styles.screen}>
-            <Text style={styles.dev}>by Pablo Galvan</Text>
             {/* <Logo fill='#F0EDEE' fillOpacity={0.7}/> */}
             <View style={styles.container}>
                 <Button title="Iniciar Sesión" onPress={()=>{navigation.navigate('Access', {tipo: 'Iniciar Sesión'})}}/>
@@ -30,10 +29,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
     },
-    dev: {
-        color: COLORS.dark_gray,
-        // fontFamily: 'NunitoSans_400Regular',
-    },
     container: {
         gap: 10,
     },
@@ -46,6 +41,6 @@ const styles = StyleSheet.create({
         color: COLORS.white,
         fontSize: 16,
         fontWeight: 'regular',
-        // fontFamily: 'NunitoSans_400Regular',
+        fontFamily: 'NunitoSans_400Regular',
     }
 })

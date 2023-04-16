@@ -1,12 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Favorites = () => {
-  return (
-    <View>
-      <Text>Favorites</Text>
-    </View>
-  )
+    return (
+        <SafeAreaView>
+            <View>
+                <Text>Favorites</Text>
+            </View>
+        </SafeAreaView>
+    )
 }
 
 export default Favorites
