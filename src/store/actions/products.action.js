@@ -35,10 +35,16 @@ export const getProducts = () => async dispatch => {
             dispatch({
                 type: GET_PRODUCTS,
                 productos
-            });   
+            });  
         }
 
     }catch(error){
         console.error("Error en getCategories", error);
     }
 }
+
+export const FILTER_PRODUCTS = 'FILTER_PRODUCTS';
+export const filterProducts = (categoria) => ({
+    type: FILTER_PRODUCTS,
+    categoria
+})

@@ -2,14 +2,12 @@ import React from 'react'
 import { Pressable } from 'react-native'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 
-const RenderCategory = ({category}) => {
-    const color = category.active ? 'red' : 'black'
+const RenderCategory = ({category, selected, onPress}) => {
+    const color = selected == category.id ? 'red' : 'black'
     return (
         <Pressable
             style={[styles.category, {borderBottomColor: color}]}
-            onPress={() => {
-                
-            }}
+            onPress={() => onPress(category.id)}
         >
             <Text style={[
                 {color: color}
@@ -18,7 +16,7 @@ const RenderCategory = ({category}) => {
     )
 }
 
-const CategoryScroll = ({categories}) => {
+const CategoryScroll = ({categories, selected, onSelect}) => {
 
 
     return (
@@ -26,7 +24,7 @@ const CategoryScroll = ({categories}) => {
             <FlatList
                 horizontal
                 data={categories}
-                renderItem={({item}) => <RenderCategory category={item} />}
+                renderItem={({item}) => <RenderCategory category={item} selected={selected} onPress={onSelect}/>}
                 keyExtractor={item => item.id}
             />
         </View>
