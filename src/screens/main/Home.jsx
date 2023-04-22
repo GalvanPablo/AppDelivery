@@ -5,6 +5,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { CategoryScroll } from '../../components'
+import { ProductList } from '../../components'
 
 import { API_URL } from "../../constants/database";
 
@@ -13,12 +14,14 @@ const Home = () => {
     const user = useSelector(state => state.auth.user)
 
     const categories = useSelector(state => state.categories.categorias)
+    const products = useSelector(state => state.products.productos)
 
     return (
         <SafeAreaView>
             <Text>Home</Text>
 
             <CategoryScroll categories={categories} />
+            <ProductList products={products} />
 
 
 

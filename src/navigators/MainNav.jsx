@@ -10,6 +10,7 @@ import EditUserData from '../screens/EditUserData'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../store/actions/categories.action'
+import { getProducts } from '../store/actions/products.action'
 
 const MainNav = () => {
     const dispatch = useDispatch()
@@ -31,6 +32,7 @@ const MainNav = () => {
 
     React.useEffect(() => {
         dispatch(getCategories())
+        dispatch(getProducts())
     }, [])
 
 
