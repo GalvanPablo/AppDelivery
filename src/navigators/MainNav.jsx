@@ -8,9 +8,12 @@ import TabNav from './TabNav'
 
 import EditUserData from '../screens/EditUserData'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { getCategories } from '../store/actions/categories.action'
 
 const MainNav = () => {
+    const dispatch = useDispatch()
+
     const token = useSelector(state => state.auth.token)
     const userId = useSelector(state => state.auth.userId)
 
@@ -25,6 +28,10 @@ const MainNav = () => {
     //         console.log('con datos de usuario')
     //     }
     // }, [user])
+
+    React.useEffect(() => {
+        dispatch(getCategories())
+    }, [])
 
 
     const isAuthenticated = token ? true : false
