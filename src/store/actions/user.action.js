@@ -77,3 +77,10 @@ export const updateUserData = (userId, nombre, telefono, foto, direcciones) => a
         console.log("Error en updateUserData")
     }
 }
+
+export const DELETE_USER_DATA = 'DELETE_USER_DATA';
+export const deleteUserData = () => async dispatch => {
+    dispatch({
+        type: DELETE_USER_DATA,
+    });
+}

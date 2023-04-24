@@ -1,4 +1,4 @@
-import { GET_USER_DATA } from "../actions/user.action";
+import { GET_USER_DATA, DELETE_USER_DATA } from "../actions/user.action";
 
 const initialState = {
     nombre: "",
@@ -16,6 +16,13 @@ const userReducer = (state = initialState, action) => {
                 telefono: action.telefono,
                 foto: action.foto || null,
                 direcciones: action.direcciones || null
+            }
+        case DELETE_USER_DATA:
+            return {
+                nombre: "",
+                telefono: "",
+                foto: "",
+                direcciones: [],
             }
         default:
             return state;

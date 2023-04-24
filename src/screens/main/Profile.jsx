@@ -4,11 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import COLORS from '../../constants/colors'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '../../store/actions/auth.actions'
 
 import { Button } from '../../components'
 
 const Profile = () => {
+    const dispatch = useDispatch()
+
     const user = useSelector(state => state.user)
     user.email = useSelector(state => state.auth.email)
 
@@ -19,12 +22,15 @@ const Profile = () => {
     return (
         <SafeAreaView style={styles.screen}>
             <View>
-                <Image style={styles.image} source={{uri: user.foto || require('../../../assets/usuario.png')}}/>
+                <Image style={styles.image} source={{uri: user.foto || 'https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg'}}/>
                 <Text style={styles.name}>{user.nombre}</Text>
                 <Text style={styles.email}>{user.email}</Text>
                 <Text style={styles.phone}>{user.telefono}</Text>
             </View>
-            <Button title="Cerrar Sesión" styleBtn={styles.button} onPress={() => {}}/>
+            <Button title="Cerrar Sesión" styleBtn={styles.button} onPress={() => {
+                console.log('logout')
+                dispatch(logout())
+            }}/>
         </SafeAreaView>
     )
 }
