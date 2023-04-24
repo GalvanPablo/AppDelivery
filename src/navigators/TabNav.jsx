@@ -1,12 +1,15 @@
-import { Home, Favorites, History, Profile } from '../screens/main'
+import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import COLORS from '../constants/colors'
-import { FontAwesome } from '@expo/vector-icons';
-import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
 const Tab = createBottomTabNavigator()
+
+import { Home, Favorites, History, Profile, Cart } from '../screens/main'
+
+import { FontAwesome } from '@expo/vector-icons';
+import COLORS from '../constants/colors'
+
+
 
 const TabNav = () => {
 
@@ -43,6 +46,18 @@ const TabNav = () => {
                     ),
                 }}
             />
+            <Tab.Screen name="Cart" component={Cart}
+                options={{
+                    tabBarLabel: 'Cart',
+                    tabBarIcon: ({ color, size }) => (
+                        <View style={styles.item}>
+                            <FontAwesome name="shopping-cart" color={color} size={size} />
+                            <Text style={[styles.text, {color: color}]}>Carrito</Text>
+                        </View>
+                    ),
+                }}
+            />
+            
             <Tab.Screen name="History" component={History}
                 options={{
                     tabBarLabel: 'History',
@@ -65,6 +80,7 @@ const TabNav = () => {
                     ),
                 }}
             />
+            
         </Tab.Navigator>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { API_URL } from "../../constants/database";
 
@@ -8,8 +8,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { seleccionarCategoria } from '../../store/actions/categories.action'
 import { filterProducts } from '../../store/actions/products.action'
 
-import { CategoryScroll } from '../../components'
+import { CategoryScroll, Header } from '../../components'
 import { ProductList } from '../../components'
+import colors from '../../constants/colors';
 
 
 const Home = () => {
@@ -29,14 +30,16 @@ const Home = () => {
     const products = useSelector(state => state.products.productosFiltrados)
 
     return (
-        <SafeAreaView>
-            <View style={styles.filter}>
-                <CategoryScroll categories={categories} selected={activeCategory} onSelect={setActiveCategory}/>
+        <SafeAreaView style={styles.screen}>
+            <View style={styles.screenContainer}>
+                <Header title={"Express Food"}/>
+                <View style={styles.filter}>
+                    <CategoryScroll categories={categories} selected={activeCategory} onSelect={setActiveCategory}/>
+                </View>
+                <View style={styles.listContainer}>
+                    <ProductList products={products} />
+                </View>
             </View>
-            <View style={styles.listContainer}>
-                <ProductList products={products} />
-            </View>
-
         </SafeAreaView>
     )
 }
@@ -44,6 +47,14 @@ const Home = () => {
 export default Home
 
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        backgroundColor: colors.white,
+    },
+    screenContainer: {
+        flex: 1,
+        backgroundColor: colors.white,
+    },
     filter: {
         marginVertical: 10,
     },

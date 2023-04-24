@@ -6,6 +6,8 @@ import COLORS from '../../constants/colors'
 
 import { useSelector } from 'react-redux'
 
+import { Button } from '../../components'
+
 const Profile = () => {
     const user = useSelector(state => state.user)
     user.email = useSelector(state => state.auth.email)
@@ -15,13 +17,14 @@ const Profile = () => {
     // }, [])
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.screen}>
             <View>
                 <Image style={styles.image} source={{uri: user.foto || require('../../../assets/usuario.png')}}/>
                 <Text style={styles.name}>{user.nombre}</Text>
                 <Text style={styles.email}>{user.email}</Text>
                 <Text style={styles.phone}>{user.telefono}</Text>
             </View>
+            <Button title="Cerrar Sesión" styleBtn={styles.button} onPress={() => {}}/>
         </SafeAreaView>
     )
 }
@@ -29,6 +32,12 @@ const Profile = () => {
 export default Profile
 
 const styles = StyleSheet.create({
+    screen: {
+        paddingVertical: 20,
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
     image: {
         width: 180,
         height: 180,
@@ -52,5 +61,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         alignSelf: 'center',
         marginTop: 10
+    },
+    button: {
+        width: 200,
+        height: 40,
+        backgroundColor: COLORS.primary,
+        borderRadius: 40,
+        alignSelf: 'center',
+        marginTop: 20,
     }
 })

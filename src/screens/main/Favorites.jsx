@@ -2,9 +2,10 @@ import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { ProductList } from '../../components'
+import { Header, ProductList } from '../../components'
 
 import ProductItem from '../../components/ProductItem'
+import colors from '../../constants/colors'
 
 
 const Favorites = () => {
@@ -20,8 +21,8 @@ const Favorites = () => {
     
 
     return (
-        <SafeAreaView>
-            <Text>Favorites</Text>
+        <SafeAreaView style={styles.screen}>
+            <Header title={"Favoritos"}/>
 
             <ProductList products={products} />
 
@@ -31,4 +32,9 @@ const Favorites = () => {
 
 export default Favorites
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        backgroundColor: colors.white,
+    },
+})
