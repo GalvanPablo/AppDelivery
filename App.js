@@ -8,7 +8,8 @@ import MainNav from './src/navigators/MainNav';
 
 // Redux
 import { Provider } from 'react-redux';
-import store from './src/store';
+import {store, storePersisted} from './src/store'
+import { PersistGate } from 'redux-persist/integration/react'
 
 // Font
 import * as SplashScreen from 'expo-splash-screen'
@@ -34,7 +35,9 @@ export default function App() {
 
     return (
         <Provider store={store}>
-            <MainNav />
+            <PersistGate loading={null} persistor={storePersisted}>
+                <MainNav />
+            </PersistGate>
         </Provider>
     );
 }
