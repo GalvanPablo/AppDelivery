@@ -8,7 +8,9 @@ import ProductItem from '../../../components/ProductItem'
 import colors from '../../../constants/colors'
 
 
-const Favorites = () => {
+const Favorites = ({navigation}) => {
+    // const navigation = useNavigation()
+
     const products = [
         {id: 1, nombre: 'Max Cheese', precio: 100, imagen: 'https://e7.pngegg.com/pngimages/708/772/png-clipart-indian-cuisine-foodservice-eating-computer-icons-breakfast-food-recipe.png'},
         {id: 2, nombre: 'Max Cheese', precio: 100, imagen: 'https://e7.pngegg.com/pngimages/708/772/png-clipart-indian-cuisine-foodservice-eating-computer-icons-breakfast-food-recipe.png'},
@@ -19,12 +21,16 @@ const Favorites = () => {
         {id: 7, nombre: 'Max Cheese', precio: 100, imagen: 'https://e7.pngegg.com/pngimages/708/772/png-clipart-indian-cuisine-foodservice-eating-computer-icons-breakfast-food-recipe.png'},
     ]
     
+    const handleOnPressItem = (producto) => {
+        console.log(producto)
+        navigation.navigate('ProductDetail', {producto})
+    }
 
     return (
         <SafeAreaView style={styles.screen}>
             <Header title={"Favoritos"}/>
             <View style={styles.screenContainer}>
-                <ProductList products={products} />
+                <ProductList products={products} onPressItem={handleOnPressItem} />
             </View>
         </SafeAreaView>
     )

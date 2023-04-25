@@ -7,7 +7,7 @@ const Tab = createBottomTabNavigator()
 
 // import { Home } from '../screens/tabs/main'
 import HomeStack from './HomeStack'
-import Favorites from '../screens/tabs/favorites/Favorites'
+import FavoritesStack from './FavoritesStack'
 import History from '../screens/tabs/history/History'
 import { Profile } from '../screens/tabs/profile'
 
@@ -40,7 +40,7 @@ const TabNav = () => {
                     ),
                 }}
             />
-            <Tab.Screen name="Favorites" component={Favorites}
+            <Tab.Screen name="Favorites" component={FavoritesStack}
                 options={{
                     tabBarLabel: 'Favorites',
                     tabBarIcon: ({ color, size }) => (
