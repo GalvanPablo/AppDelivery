@@ -1,11 +1,11 @@
 import React from 'react'
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 
-import { AdvanceInput, ImageSelector, Button } from '../components'
+import { AdvanceInput, ImageSelector, Button } from '../../../components'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserData } from '../store/actions/user.action';
+import { updateUserData } from '../../../store/actions/user.action';
 
 const EditUserData = () => {
     const dispatch = useDispatch()

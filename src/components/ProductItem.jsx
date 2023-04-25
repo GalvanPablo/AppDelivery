@@ -5,7 +5,7 @@ import COLORS from '../constants/colors'
 
 const ProductItem = ({producto, onPress}) => {
     return (
-        <Pressable style={styles.container}>
+        <Pressable style={styles.container} onPress={()=>onPress(producto)}>
             <View style={styles.imageContainer} >
                 <Image style={styles.image} source={{uri: producto.imagen}}/>
             </View>

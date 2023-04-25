@@ -1,18 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import colors from '../../constants/colors'
-import { Header } from '../../components'
+import colors from '../../../constants/colors'
+import { Header } from '../../../components'
 
-const Cart = () => {
+const History = () => {
     return (
         <SafeAreaView style={styles.screen}>
-            <Header title={"Carrito"}/>
+            <Header title={"Historial"}/>
         </SafeAreaView>
     )
 }
 
-export default Cart
+export default History
 
 const styles = StyleSheet.create({
     screen: {

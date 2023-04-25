@@ -2,12 +2,12 @@ import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import COLORS from '../../constants/colors'
+import COLORS from '../../../constants/colors'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { logout } from '../../store/actions/auth.actions'
+import { logout } from '../../../store/actions/auth.actions'
 
-import { Button } from '../../components'
+import { Button } from '../../../components'
 
 const Profile = () => {
     const dispatch = useDispatch()

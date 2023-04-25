@@ -6,7 +6,7 @@ import AuthStack from './AuthStack'
 import TabNav from './TabNav'
 
 
-import EditUserData from '../screens/EditUserData'
+import { EditUserData } from '../screens/tabs/profile'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../store/actions/categories.action'

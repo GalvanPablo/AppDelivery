@@ -2,18 +2,17 @@ import React from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { API_URL } from "../../constants/database";
+import { API_URL } from "../../../constants/database";
 
 import { useSelector, useDispatch } from 'react-redux'
-import { seleccionarCategoria } from '../../store/actions/categories.action'
-import { filterProducts } from '../../store/actions/products.action'
+import { seleccionarCategoria } from '../../../store/actions/categories.action'
+import { filterProducts } from '../../../store/actions/products.action'
 
-import { CategoryScroll, Header } from '../../components'
-import { ProductList } from '../../components'
-import colors from '../../constants/colors';
+import { Header, CategoryScroll, ProductList } from '../../../components'
+import COLORS from '../../../constants/colors';
 
 
-const Home = () => {
+const Home = ({navigation}) => {
     const dispatch = useDispatch()
 
     const userId = useSelector(state => state.auth.userId)
@@ -29,6 +28,11 @@ const Home = () => {
 
     const products = useSelector(state => state.products.productosFiltrados)
 
+    const handleOnPressItem = (producto) => {
+        console.log(producto)
+        navigation.navigate('ProductDetail', {producto})
+    }
+
     return (
         <SafeAreaView style={styles.screen}>
             <View style={styles.screenContainer}>
@@ -37,7 +41,7 @@ const Home = () => {
                     <CategoryScroll categories={categories} selected={activeCategory} onSelect={setActiveCategory}/>
                 </View>
                 <View style={styles.listContainer}>
-                    <ProductList products={products} />
+                    <ProductList products={products} onPressItem={handleOnPressItem}/>
                 </View>
             </View>
         </SafeAreaView>
@@ -49,11 +53,11 @@ export default Home
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: colors.white,
+        backgroundColor: COLORS.white,
     },
     screenContainer: {
         flex: 1,
-        backgroundColor: colors.white,
+        backgroundColor: COLORS.white,
     },
     filter: {
         marginVertical: 10,

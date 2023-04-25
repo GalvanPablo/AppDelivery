@@ -2,10 +2,10 @@ import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { Header, ProductList } from '../../components'
+import { Header, ProductList } from '../../../components'
 
-import ProductItem from '../../components/ProductItem'
-import colors from '../../constants/colors'
+import ProductItem from '../../../components/ProductItem'
+import colors from '../../../constants/colors'
 
 
 const Favorites = () => {

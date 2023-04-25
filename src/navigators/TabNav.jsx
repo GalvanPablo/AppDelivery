@@ -4,7 +4,12 @@ import { StyleSheet, Text, View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 const Tab = createBottomTabNavigator()
 
-import { Home, Favorites, History, Profile, Cart } from '../screens/main'
+
+// import { Home } from '../screens/tabs/main'
+import HomeStack from './HomeStack'
+import Favorites from '../screens/tabs/favorites/Favorites'
+import History from '../screens/tabs/history/History'
+import { Profile } from '../screens/tabs/profile'
 
 import { FontAwesome } from '@expo/vector-icons';
 import COLORS from '../constants/colors'
@@ -14,7 +19,7 @@ import COLORS from '../constants/colors'
 const TabNav = () => {
 
     return (
-        <Tab.Navigator initialRouteName='Home'
+        <Tab.Navigator initialRouteName='Main'
             screenOptions={{
                 tabBarActiveTintColor: COLORS.primary,
                 tabBarInactiveTintColor: COLORS.dark_gray,
@@ -24,7 +29,7 @@ const TabNav = () => {
             }}
 
         >
-            <Tab.Screen name="Home" component={Home}
+            <Tab.Screen name="Main" component={HomeStack}
                 options={{
                     tabBarLabel: 'Home',
                     tabBarIcon: ({ color, size }) => (
@@ -46,7 +51,7 @@ const TabNav = () => {
                     ),
                 }}
             />
-            <Tab.Screen name="Cart" component={Cart}
+            {/* <Tab.Screen name="Cart" component={Cart}
                 options={{
                     tabBarLabel: 'Cart',
                     tabBarIcon: ({ color, size }) => (
@@ -56,7 +61,7 @@ const TabNav = () => {
                         </View>
                     ),
                 }}
-            />
+            /> */}
             
             <Tab.Screen name="History" component={History}
                 options={{
