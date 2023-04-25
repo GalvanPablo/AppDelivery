@@ -8,6 +8,9 @@ const History = () => {
     return (
         <SafeAreaView style={styles.screen}>
             <Header title={"Historial"}/>
+            <View style={styles.screenContainer}>
+
+            </View>
         </SafeAreaView>
     )
 }
@@ -18,5 +21,9 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.white,
+    },
+    screenContainer: {
+        flex: 1,
+        backgroundColor: colors.background,
     },
 })

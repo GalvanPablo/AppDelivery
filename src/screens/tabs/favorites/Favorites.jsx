@@ -23,9 +23,9 @@ const Favorites = () => {
     return (
         <SafeAreaView style={styles.screen}>
             <Header title={"Favoritos"}/>
-
-            <ProductList products={products} />
-
+            <View style={styles.screenContainer}>
+                <ProductList products={products} />
+            </View>
         </SafeAreaView>
     )
 }
@@ -36,5 +36,9 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.white,
+    },
+    screenContainer: {
+        flex: 1,
+        backgroundColor: colors.background,
     },
 })

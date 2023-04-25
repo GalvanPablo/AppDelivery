@@ -35,8 +35,8 @@ const Home = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.screen}>
+            <Header title={"Express Food"} isHome/>
             <View style={styles.screenContainer}>
-                <Header title={"Express Food"}/>
                 <View style={styles.filter}>
                     <CategoryScroll categories={categories} selected={activeCategory} onSelect={setActiveCategory}/>
                 </View>
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     },
     screenContainer: {
         flex: 1,
-        backgroundColor: COLORS.white,
+        backgroundColor: COLORS.background,
     },
     filter: {
         marginVertical: 10,
