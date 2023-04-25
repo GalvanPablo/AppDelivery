@@ -1,12 +1,9 @@
 import React from 'react'
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { API_URL } from "../../../constants/database";
-
 import { useSelector, useDispatch } from 'react-redux'
-import { seleccionarCategoria } from '../../../store/actions/categories.action'
-import { filterProducts } from '../../../store/actions/products.action'
+import { filterProducts, getProductDetail } from '../../../store/actions/products.action'
 
 import { Header, CategoryScroll, ProductList } from '../../../components'
 import COLORS from '../../../constants/colors';
@@ -29,7 +26,7 @@ const Home = ({navigation}) => {
     const products = useSelector(state => state.products.productosFiltrados)
 
     const handleOnPressItem = (producto) => {
-        console.log(producto)
+        dispatch(getProductDetail(producto.id))
         navigation.navigate('ProductDetail', {producto})
     }
 

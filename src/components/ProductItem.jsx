@@ -3,6 +3,8 @@ import { Pressable, StyleSheet, Text, View, Image } from 'react-native'
 
 import COLORS from '../constants/colors'
 
+const currencyFormat = (num) => num.toLocaleString("es-AR", {style: "currency", currency: "ARS", minimumFractionDigits: 2})
+
 const ProductItem = ({producto, onPress}) => {
     return (
         <Pressable style={styles.container} onPress={()=>onPress(producto)}>
@@ -11,7 +13,7 @@ const ProductItem = ({producto, onPress}) => {
             </View>
             <View style={styles.info} >
                 <Text style={styles.name}>{producto.nombre}</Text>
-                <Text style={styles.price}>${producto.precio}</Text>
+                <Text style={styles.price}>{currencyFormat(producto.precio)}</Text>
             </View>
         </Pressable>
     )

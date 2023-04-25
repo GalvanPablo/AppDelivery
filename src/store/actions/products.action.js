@@ -48,3 +48,61 @@ export const filterProducts = (categoria) => ({
     type: FILTER_PRODUCTS,
     categoria
 })
+
+export const GET_PRODUCT_DETAIL = 'GET_PRODUCT_DETAIL';
+export const getProductDetail = (id) => async dispatch => {
+    try{
+        const response = await fetch(`${API_URL}productos/${id}.json`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if(!response.ok){
+            const errorResData = await response.json();
+            const errorId = errorResData.error.message;
+            let message = 'Algo salió mal!';
+            throw new Error(message, errorId);
+        }
+
+        const data = await response.json();
+
+        if(data){
+
+            const categoryResponse = await fetch(`${API_URL}categorias/${data.categoria}.json`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if(!categoryResponse.ok){
+                const errorResData = await categoryResponse.json();
+                const errorId = errorResData.error.message;
+                let message = 'Algo salió mal!';
+                throw new Error(message, errorId);
+            }
+
+            const categoryData = await categoryResponse.json();
+            if(categoryData){
+                const detalleProducto = {
+                    id,
+                    nombre: data.nombre,
+                    precio: data.precio,
+                    categoria: categoryData.nombre,
+                    imagen: data.imagen,
+                    descripcion: data.descripcion
+                };
+
+                dispatch({
+                    type: GET_PRODUCT_DETAIL,
+                    detalleProducto
+                });
+            }
+        }
+
+    }catch(error){
+        console.error("Error en getProductDetail", error);
+    }
+}

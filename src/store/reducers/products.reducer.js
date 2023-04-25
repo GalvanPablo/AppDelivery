@@ -1,8 +1,9 @@
-import { GET_PRODUCTS, FILTER_PRODUCTS } from "../actions/products.action";
+import { GET_PRODUCTS, FILTER_PRODUCTS, GET_PRODUCT_DETAIL } from "../actions/products.action";
 
 const initialState = {
     productos: [],
-    productosFiltrados: []
+    productosFiltrados: [],
+    detalleProducto: {}
 };
 
 const productsReducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ const productsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 productosFiltrados: action.categoria == 0 ? state.productos : state.productos.filter(producto => producto.categoria === action.categoria)
+            };
+        case GET_PRODUCT_DETAIL:
+            return {
+                ...state,
+                detalleProducto: action.detalleProducto
             };
         default:
             return state;

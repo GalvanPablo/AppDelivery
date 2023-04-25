@@ -3,10 +3,11 @@ import Button from "./Button";
 import SwitchButton from "./SwitchButton";
 import ImageSelector from "./ImageSelector";
 
+import Header from "./Header";
 import CategoryScroll from "./CategoryScroll";
 import ProductList from "./ProductList";
 
-import Header from "./Header";
+import QuantitySelector from "./QuantitySelector";
 
 export {
     AdvanceInput,
@@ -16,5 +17,7 @@ export {
 
     Header,
     CategoryScroll,
-    ProductList
+    ProductList,
+
+    QuantitySelector
 };
