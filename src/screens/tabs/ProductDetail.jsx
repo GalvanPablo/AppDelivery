@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import COLORS from '../../constants/colors'
@@ -7,16 +7,23 @@ import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
 import { Header, Button, QuantitySelector } from '../../components'
 
-import { useSelector } from 'react-redux'
-import { Pressable } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { addToCart } from '../../store/actions/cart.action'
 
 const currencyFormat = (num) => num.toLocaleString("es-AR", {style: "currency", currency: "ARS", minimumFractionDigits: 2})
 
-const ProductDetail = () => {
+const ProductDetail = ({navigation}) => {
+    const dispatch = useDispatch()
     const producto = useSelector(state => state.products.detalleProducto)
     const [favorito, setFavorito] = React.useState(false)
 
     const [cantidad, setCantidad] = React.useState(1)
+
+    const handleAddToCart = () => {
+        dispatch(addToCart(producto, cantidad))
+        navigation.navigate('Cart')
+    }
+
 
     return (
         <SafeAreaView style={styles.screen}>
@@ -47,6 +54,7 @@ const ProductDetail = () => {
                         styleBtn={styles.cartButton}
                         styleTxt={styles.cartButtonText}
                         icon={<FontAwesome5 name="shopping-cart" size={20} color={COLORS.white} />}
+                        onPress={handleAddToCart}
                     />
                 </View>
             </View>

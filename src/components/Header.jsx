@@ -6,21 +6,22 @@ import colors from '../constants/colors'
 
 import { useNavigation } from '@react-navigation/native'
 
-const Header = ({title, isHome = false, goBack = false}) => {
+const Header = ({title, goCart = false, goBack = false}) => {
     const navigation = useNavigation()
 
-    if(isHome && goBack) throw new Error('isHome and goBack cannot be true at the same time')
+    if(goCart && goBack) throw new Error('Header cannot be both home and goBack')
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
-            {isHome && 
+            {goCart && 
                 <Pressable onPress={() => {
                     navigation.navigate('Cart')
                 }}>
                     <FontAwesome5 name="shopping-cart" size={24} color="black" />
                 </Pressable>
             }
+
             {goBack &&
                 <Pressable onPress={() => {
                     navigation.goBack()

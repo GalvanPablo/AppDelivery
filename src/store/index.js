@@ -12,12 +12,14 @@ import authReducer from './reducers/auth.reducer';
 import userReducer from './reducers/user.reducer';
 import categoriesReducer from './reducers/categories.reducer';
 import productsReducer from './reducers/products.reducer';
+import cartReducer from './reducers/cart.reducer';
 
 const rootReducer = combineReducers({
     auth: authReducer,
     user: userReducer,
     categories: categoriesReducer,
-    products: productsReducer
+    products: productsReducer,
+    cart: cartReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

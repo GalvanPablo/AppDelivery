@@ -9,6 +9,8 @@ import ProductList from "./ProductList";
 
 import QuantitySelector from "./QuantitySelector";
 
+import ItemCart from "./ItemCart";
+
 export {
     AdvanceInput,
     Button,
@@ -19,5 +21,7 @@ export {
     CategoryScroll,
     ProductList,
 
-    QuantitySelector
+    QuantitySelector,
+
+    ItemCart
 };

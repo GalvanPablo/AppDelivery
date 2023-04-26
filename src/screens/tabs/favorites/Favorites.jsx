@@ -23,12 +23,12 @@ const Favorites = ({navigation}) => {
     
     const handleOnPressItem = (producto) => {
         console.log(producto)
-        navigation.navigate('ProductDetail', {producto})
+        navigation.navigate('ProductDetail')
     }
 
     return (
         <SafeAreaView style={styles.screen}>
-            <Header title={"Favoritos"}/>
+            <Header title={"Favoritos"} goCart/>
             <View style={styles.screenContainer}>
                 <ProductList products={products} onPressItem={handleOnPressItem} />
             </View>
