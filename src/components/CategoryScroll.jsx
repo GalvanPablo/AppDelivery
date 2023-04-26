@@ -9,9 +9,11 @@ const RenderCategory = ({category, selected, onPress}) => {
             style={[styles.category, {borderBottomColor: color}]}
             onPress={() => onPress(category.id)}
         >
-            <Text style={[
-                {color: color}
-            ]}>{category.nombre}</Text>
+            <Text style={{
+                color: color,
+                fontFamily: 'NunitoSans_400Regular',
+                fontSize: 16,
+            }}>{category.nombre}</Text>
         </Pressable>
     )
 }
@@ -35,7 +37,7 @@ export default CategoryScroll
 
 const styles = StyleSheet.create({
     category: {
-        borderBottomWidth: 2,
+        borderBottomWidth: 1.5,
 
         marginHorizontal: 10,
         paddingVertical: 4,
