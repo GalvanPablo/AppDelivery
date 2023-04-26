@@ -16,6 +16,10 @@ const Cart = ({navigation}) => {
     const cart = useSelector(state => state.cart.list)
     const total = useSelector(state => state.cart.total)
 
+    React.useEffect(() => {
+        console.log('Cart', cart)
+    }, [cart])
+
     return (
         <SafeAreaView style={styles.screen}>
             <Header title={"Carrito"} goBack/>

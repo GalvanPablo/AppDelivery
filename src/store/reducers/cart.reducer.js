@@ -17,18 +17,26 @@ const cartReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_TO_CART:
-            const addList = [...state.list];
+            console.log('ADD_TO_CART');
 
-            const index = addList.findIndex(item => item.product.id === action.product.id);
-            if (index === -1) {
-                addList.push({ product: {...action.product} , cant: action.cant });
+            const addList = [...state.list];
+            const addIndex = addList.findIndex(item => item.product.id === action.product.id);
+            if (addIndex !== -1) {
+                console.log("Actualizando cantidad")
+                addList[addIndex].cant += action.cant;
             } else {
-                addList[index].cant += action.cant;
+                console.log("Agregando nuevo producto")
+                addList.push({
+                    product: action.product,
+                    cant: action.cant
+                });
             }
+
+
             
             return {
                 ...state,
-                addList,
+                list: addList,
                 total: getTotal(addList)
             };
         
