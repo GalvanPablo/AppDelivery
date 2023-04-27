@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { filterProducts, getProductDetail } from '../../../store/actions/products.action'
+import { filterProducts } from '../../../store/actions/products.action'
 
 import { Header, CategoryScroll, ProductList } from '../../../components'
 import COLORS from '../../../constants/colors';
@@ -25,11 +25,6 @@ const Home = ({navigation}) => {
 
     const products = useSelector(state => state.products.productosFiltrados)
 
-    const handleOnPressItem = (producto) => {
-        dispatch(getProductDetail(producto.id))
-        navigation.navigate('ProductDetail')
-    }
-
     return (
         <SafeAreaView style={styles.screen}>
             <Header title={"Express Food"} goCart/>
@@ -38,7 +33,7 @@ const Home = ({navigation}) => {
                     <CategoryScroll categories={categories} selected={activeCategory} onSelect={setActiveCategory}/>
                 </View>
                 <View style={styles.listContainer}>
-                    <ProductList products={products} onPressItem={handleOnPressItem}/>
+                    <ProductList products={products} />
                 </View>
             </View>
         </SafeAreaView>

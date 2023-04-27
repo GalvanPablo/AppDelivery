@@ -9,13 +9,28 @@ import { Header, Button, QuantitySelector } from '../../components'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { addToCart } from '../../store/actions/cart.action'
+import { addFavorite, removeFavorite } from '../../store/actions/user.action'
 
 const currencyFormat = (num) => num.toLocaleString("es-AR", {style: "currency", currency: "ARS", minimumFractionDigits: 2})
 
 const ProductDetail = ({navigation}) => {
     const dispatch = useDispatch()
     const producto = useSelector(state => state.products.detalleProducto)
+
+    const fav = useSelector(state => state.user.favoritos).some(f => f === producto.id)
+    React.useLayoutEffect(() => {
+        setFavorito(fav)
+    }, [fav])
+
     const [favorito, setFavorito] = React.useState(false)
+    const handleFavorite = () => {
+        if (favorito) {
+            dispatch(removeFavorite(producto.id))
+        } else {
+            dispatch(addFavorite(producto.id))
+        }
+        setFavorito(!favorito)
+    }
 
     const [cantidad, setCantidad] = React.useState(1)
 
@@ -35,8 +50,8 @@ const ProductDetail = ({navigation}) => {
                         onPress={() => setFavorito(!favorito)}
                     >
                         {favorito
-                            ? <FontAwesome name="heart" size={28} color={COLORS.primary} onPress={() => setFavorito(!favorito)} />
-                            : <FontAwesome5 name="heart" size={28} color={COLORS.dark_gray} onPress={() => setFavorito(!favorito)} />
+                            ? <FontAwesome name="heart" size={28} color={COLORS.primary} onPress={() => handleFavorite()} />
+                            : <FontAwesome5 name="heart" size={28} color={COLORS.dark_gray} onPress={() => handleFavorite()} />
                         }
                     </Pressable>
                 </View>

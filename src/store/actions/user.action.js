@@ -79,8 +79,19 @@ export const updateUserData = (userId, nombre, telefono, foto, direcciones) => a
 }
 
 export const DELETE_USER_DATA = 'DELETE_USER_DATA';
-export const deleteUserData = () => async dispatch => {
-    dispatch({
-        type: DELETE_USER_DATA,
-    });
-}
+export const deleteUserData = () => ({
+    type: DELETE_USER_DATA,
+});
+
+
+export const ADD_FAVORITE = 'ADD_FAVORITE';
+export const addFavorite = (productoId) => ({
+    type: ADD_FAVORITE,
+    productoId
+});
+
+export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+export const removeFavorite = (productoId) => ({
+    type: REMOVE_FAVORITE,
+    productoId
+});

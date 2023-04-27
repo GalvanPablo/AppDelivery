@@ -1,13 +1,25 @@
 import React from 'react'
 import { Pressable, StyleSheet, Text, View, Image } from 'react-native'
 
+import { useDispatch } from 'react-redux'
+import { getProductDetail } from '../store/actions/products.action'
+import { useNavigation } from '@react-navigation/native'
+
 import COLORS from '../constants/colors'
 
 const currencyFormat = (num) => num.toLocaleString("es-AR", {style: "currency", currency: "ARS", minimumFractionDigits: 2})
 
-const ProductItem = ({producto, onPress}) => {
+const ProductItem = ({producto}) => {
+    const dispatch = useDispatch()
+    const navigation = useNavigation()
+
+    const handleOnPressItem = (producto) => {
+        dispatch(getProductDetail(producto.id))
+        navigation.navigate('ProductDetail')
+    }
+
     return (
-        <Pressable style={styles.container} onPress={()=>onPress(producto)}>
+        <Pressable style={styles.container} onPress={()=>handleOnPressItem(producto)}>
             <View style={styles.imageContainer} >
                 <Image style={styles.image} source={{uri: producto.imagen}}/>
             </View>
