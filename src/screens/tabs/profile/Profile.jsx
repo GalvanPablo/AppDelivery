@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import COLORS from '../../../constants/colors'
@@ -7,7 +7,8 @@ import COLORS from '../../../constants/colors'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../../../store/actions/auth.actions'
 
-import { Button } from '../../../components'
+import { Button, Header } from '../../../components'
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const Profile = () => {
     const dispatch = useDispatch()
@@ -21,13 +22,26 @@ const Profile = () => {
 
     return (
         <SafeAreaView style={styles.screen}>
-            <View>
-                <Image style={styles.image} source={{uri: user.foto || 'https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg'}}/>
-                <Text style={styles.name}>{user.nombre}</Text>
-                <Text style={styles.email}>{user.email}</Text>
-                <Text style={styles.phone}>{user.telefono}</Text>
+            <Header title="Datos personales"/>
+            <View style={styles.screenContainer}>
+                <View style={styles.imageContainer}>
+                    <Image style={styles.image} source={{uri: user.foto || 'https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg'}}/>
+                </View>
+                <View style={styles.detalle}>
+                    <FontAwesome5 name="at" size={24} color="black" style={styles.detalleIcon}/>
+                    <Text style={styles.name}>{user.nombre}</Text>
+                </View>
+                <View style={styles.detalle}>
+                    <FontAwesome5 name="envelope" size={24} color="black" style={styles.detalleIcon}/>
+                    <Text style={styles.email}>{user.email}</Text>
+                </View>
+                <View style={styles.detalle}>
+                    <FontAwesome5 name="mobile-alt" size={24} color="black" style={styles.detalleIcon}/>
+                    <Text style={styles.phone}>{user.telefono}</Text>
+                </View>
             </View>
-            <Button title="Cerrar Sesión" styleBtn={styles.button} onPress={() => {
+
+            <Button title="Cerrar Sesión" styleBtn={styles.logout} onPress={() => {
                 console.log('logout')
                 dispatch(logout())
             }}/>
@@ -39,41 +53,63 @@ export default Profile
 
 const styles = StyleSheet.create({
     screen: {
-        paddingVertical: 20,
         flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
     },
+
+    screenContainer: {
+        flex: 1,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+    },
+
+    imageContainer: {
+        width: 150,
+        height: 150,
+        alignSelf: 'center',
+        borderRadius: 100,
+        overflow: 'hidden',
+        marginVertical: 20,
+    },
+
     image: {
-        width: 180,
-        height: 180,
-        borderRadius: 90,
-        alignSelf: 'center',
-        borderColor: COLORS.ligth_gray,
-        borderWidth: 4,
+        width: '100%',
+        height: '100%',
     },
-    name: {
-        fontSize: 20,
-        fontWeight: 'bold',
+
+    detalle: {
+        width: '100%',
         alignSelf: 'center',
-        marginTop: 10
+        flexDirection: 'row',
+        alignItems: 'center',
+
+        marginVertical: 5,
+        padding: 10,
+        borderRadius: 10,
+
+        gap: 5,
+
+        backgroundColor: COLORS.white,
+
+        shadowColor: COLORS.black,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        elevation: 1,
     },
-    email: {
-        fontSize: 16,
-        alignSelf: 'center',
-        marginTop: 10
+
+    detalleIcon:{
+        width: 30,
+        textAlign: 'center',
     },
-    phone: {
-        fontSize: 16,
-        alignSelf: 'center',
-        marginTop: 10
-    },
-    button: {
+
+    logout: {
         width: 200,
         height: 40,
         backgroundColor: COLORS.primary,
         borderRadius: 40,
         alignSelf: 'center',
-        marginTop: 20,
+        marginBottom: 20,
     }
 })
