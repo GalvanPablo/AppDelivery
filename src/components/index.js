@@ -11,6 +11,8 @@ import QuantitySelector from "./QuantitySelector";
 
 import ItemCart from "./ItemCart";
 
+import AddressSelector from "./AddressSelector";
+
 export {
     AdvanceInput,
     Button,
@@ -23,5 +25,7 @@ export {
 
     QuantitySelector,
 
-    ItemCart
+    ItemCart,
+
+    AddressSelector
 };

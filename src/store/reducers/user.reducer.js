@@ -31,10 +31,8 @@ const userReducer = (state = initialState, action) => {
         case ADD_FAVORITE:
             const index = state.favoritos.findIndex(fav => fav === action.productoId);
             if(index >= 0){
-                console.log("El producto ya está en favoritos")
                 return state;
             } else {
-                console.log("Se agregó el producto a favoritos")
                 return {
                     ...state,
                     favoritos: [...state.favoritos, action.productoId]
@@ -42,7 +40,6 @@ const userReducer = (state = initialState, action) => {
             }
         
         case REMOVE_FAVORITE:
-            console.log("Eliminando producto de favoritos")
             return {
                 ...state,
                 favoritos: state.favoritos.filter(fav => fav !== action.productoId)

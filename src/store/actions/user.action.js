@@ -61,7 +61,6 @@ export const updateUserData = (userId, nombre, telefono, foto, direcciones) => a
         const data = await response.json();
 
         if(data){
-            console.log("Se actualizaron los datos del usuario")
             dispatch({
                 type: UPDATE_USER_DATA,
                 nombre,

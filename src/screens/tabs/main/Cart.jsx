@@ -16,10 +16,6 @@ const Cart = ({navigation}) => {
     const cart = useSelector(state => state.cart.list)
     const total = useSelector(state => state.cart.total)
 
-    React.useEffect(() => {
-        console.log('Cart', cart)
-    }, [cart])
-
     return (
         <SafeAreaView style={styles.screen}>
             <Header title={"Carrito"} goBack/>
@@ -37,7 +33,10 @@ const Cart = ({navigation}) => {
                         <Pressable style={styles.clearCart}  onPress={() => dispatch(clearCart())}>
                             <FontAwesome name="trash-o" size={24} color="black" />
                         </Pressable>
-                        <Button title={"Realizar Pedido"} onPress={() => navigation.navigate("PucharseDetail")}/>
+                        <Button title={"Realizar Pedido"} onPress={() => {
+                            console.log('Realizar Pedido')
+                            navigation.navigate("PucharseDetail")
+                        }}/>
                     </View>
                 </>}
             </View>

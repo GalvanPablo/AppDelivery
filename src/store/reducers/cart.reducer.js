@@ -17,15 +17,12 @@ const cartReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_TO_CART:
-            console.log('ADD_TO_CART');
 
             const addList = [...state.list];
             const addIndex = addList.findIndex(item => item.product.id === action.product.id);
             if (addIndex !== -1) {
-                console.log("Actualizando cantidad")
                 addList[addIndex].cant += action.cant;
             } else {
-                console.log("Agregando nuevo producto")
                 addList.push({
                     product: action.product,
                     cant: action.cant

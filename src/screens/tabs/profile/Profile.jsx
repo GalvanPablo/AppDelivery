@@ -16,10 +16,6 @@ const Profile = () => {
     const user = useSelector(state => state.user)
     user.email = useSelector(state => state.auth.email)
 
-    // React.useEffect(() => {
-    //     console.log(user)
-    // }, [])
-
     return (
         <SafeAreaView style={styles.screen}>
             <Header title="Datos personales"/>
@@ -63,10 +59,10 @@ const styles = StyleSheet.create({
     },
 
     imageContainer: {
-        width: 150,
-        height: 150,
+        width: 250,
+        height: 250,
         alignSelf: 'center',
-        borderRadius: 100,
+        borderRadius: 250,
         overflow: 'hidden',
         marginVertical: 20,
     },

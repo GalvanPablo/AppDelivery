@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { Button, Header } from '../../components'
+import { AddressSelector, Button, Header } from '../../components'
 
 import COLORS from '../../constants/colors'
 
@@ -29,7 +29,7 @@ const PucharseDetail = () => {
                     </View>
                 </View>
 
-                <View style={styles.detalle}>
+                {/* <View style={styles.detalle}>
                     <Text style={styles.tituloDetalle}>Detalle de la entrega</Text>
                     <View style={styles.ubicacion}>
                         <Text style={styles.ubicacionNombre}>CASA</Text>
@@ -39,9 +39,11 @@ const PucharseDetail = () => {
                     <View style={styles.ubicacion}>
                         <Text>Nueva dirección</Text>
                     </View>
-                </View>
+                </View> */}
 
-                <View style={styles.detalle}>
+                <AddressSelector />
+
+                {/* <View style={styles.detalle}>
                     <Text style={styles.tituloDetalle}>Forma de pago</Text>
                     <View style={styles.medioPago}>
                         <FontAwesome name="credit-card" size={32} color="black" />
@@ -51,7 +53,7 @@ const PucharseDetail = () => {
                         <FontAwesome name="money" size={32} color="black" />
                         <Text>Efectivo</Text>
                     </View>
-                </View>
+                </View> */}
 
                 <Button title={"Confirmar Pedido"} onPress={() => console.log('Confirmar Pedido')}/>
             </View>
