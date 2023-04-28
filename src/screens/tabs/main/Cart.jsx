@@ -31,15 +31,15 @@ const Cart = ({navigation}) => {
                     style={{padding: 10}}
                 />
 
-
-                {cart.length > 0 &&
-                <View style={styles.actionsContainer}>
-                    <Pressable style={styles.clearCart}  onPress={() => dispatch(clearCart())}>
-                        <FontAwesome name="trash-o" size={24} color="black" />
-                    </Pressable>
-                    <Button title={"Pagar " + currencyFormat(total)} onPress={() => console.log('Checkout')}/>
-                </View>
-                }
+                {cart.length > 0 && <>
+                    <Text style={styles.total}>Total: {currencyFormat(total)}</Text>
+                    <View style={styles.actionsContainer}>
+                        <Pressable style={styles.clearCart}  onPress={() => dispatch(clearCart())}>
+                            <FontAwesome name="trash-o" size={24} color="black" />
+                        </Pressable>
+                        <Button title={"Realizar Pedido"} onPress={() => navigation.navigate("PucharseDetail")}/>
+                    </View>
+                </>}
             </View>
         </SafeAreaView>
     )
@@ -55,6 +55,13 @@ const styles = StyleSheet.create({
     screenContainer: {
         flex: 1,
         backgroundColor: COLORS.background,
+    },
+
+    total: {
+        textAlign: 'right',
+        padding: 10,
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 
     actionsContainer: {
