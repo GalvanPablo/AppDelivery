@@ -79,18 +79,17 @@ const AddressSelector = ({onSave}) => {
     const [mapOnLayout, setMapOnLayout] = React.useState(false)
     React.useEffect(() => {
         if(mapOnLayout){
-            mapViewRef.current.animateToRegion({
+            getAddress()
+            mapViewRef.current?.animateToRegion({
                 latitude: selectedLocation.lat,
                 longitude: selectedLocation.lng,
                 latitudeDelta: 0.01,
                 longitudeDelta: 0.01,
-            }, 500) 
+            }, 1000) 
         }
-        getAddress()
     }, [selectedLocation])
-
-    // OBTENER DIRECCIÓN
     
+    // OBTENER DIRECCIÓ
     const getAddress = async () => {
         if(!selectedLocation) return
         const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${selectedLocation.lat},${selectedLocation.lng}&key=${MAP_KEY}`)
@@ -113,8 +112,8 @@ const AddressSelector = ({onSave}) => {
     return (
         <>
             { !selectedLocation
-                ? <Pressable style={styles.container} onPress={()=>openModal()}>
-                    <Text style={styles.text}>Seleccionar Ubicación</Text>
+                ? <Pressable style={[styles.container,  { backgroundColor: selectedLocation === null ? COLORS.ligth_gray : COLORS.white }]} onPress={()=>openModal()}>
+                    <Text style={[styles.text, {fontWeight: selectedLocation === null ? "normal" : "bold"}]}>Seleccionar Ubicación</Text>
                 </Pressable>
                 : <View style={styles.container}>
                     <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -170,21 +169,35 @@ export default AddressSelector
 
 const styles = StyleSheet.create({
     container:{
-        marginVertical: 5,
+        // gap: 5,
+
+        // backgroundColor: COLORS.ligth_gray,
+
+        // padding: 10,
+        // borderRadius: 10,
+
+        // shadowColor: COLORS.black,
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 2,
+        // },
+        // shadowOpacity: 0.25,
+        // elevation: 1,
+
+        padding: 15,
+        borderRadius: 10,
         gap: 5,
 
-        backgroundColor: COLORS.ligth_gray,
-
-        padding: 10,
-        borderRadius: 10,
+        backgroundColor: COLORS.white,
 
         shadowColor: COLORS.black,
         shadowOffset: {
             width: 0,
-            height: 2,
+            height: 1,
         },
-        shadowOpacity: 0.25,
-        elevation: 1,
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+        elevation: 3,
     },
 
     modalContainer: {
@@ -209,7 +222,7 @@ const styles = StyleSheet.create({
 
     text: {
         fontSize: 16,
-        color: COLORS.dark_gray,
+        fontWeight: "bold",
     },
 
     street: {
@@ -219,7 +232,7 @@ const styles = StyleSheet.create({
     },
 
     city: {
-        fontSize: 16,
+        fontSize: 14,
         color: COLORS.dark_gray,
     },
 

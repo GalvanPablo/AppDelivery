@@ -48,7 +48,8 @@ const AdvanceInput = ({
     errorStyle = {},            // Estilos del error
     errorPosition = 'bottom',   // Posición del error (top, bottom)
 }) => {
-
+    if(onInputChange == null) throw new Error(`onInputChange is required`);
+    if(onInputChange != null && typeof onInputChange != 'function') throw new Error(`onInputChange must be a function`);
 
     // Validar el tipo de input
     if(!inputType.includes(type)) {

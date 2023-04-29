@@ -14,6 +14,8 @@ import ItemCart from "./ItemCart";
 import AddressSelector from "./AddressSelector";
 import MapPreview from "./MapPreview";
 
+import PaymentMethodSelector from "./PaymentMethodSelector";
+
 export {
     AdvanceInput,
     Button,
@@ -29,5 +31,7 @@ export {
     ItemCart,
 
     AddressSelector,
-    MapPreview
+    MapPreview,
+
+    PaymentMethodSelector
 };

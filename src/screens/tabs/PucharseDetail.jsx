@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { AddressSelector, Button, Header } from '../../components'
+import { Header, AddressSelector, PaymentMethodSelector, Button  } from '../../components'
 
 import COLORS from '../../constants/colors'
 
@@ -13,12 +13,14 @@ const PucharseDetail = () => {
     const cart = useSelector(state => state.cart.list)
     const total = useSelector(state => state.cart.total)
     const [direccion, setDireccion] = React.useState(null)
+    const [pago, setPago] = React.useState(null)
 
     const confirmarPedido = () => {
         console.log('## Confirmar Pedido')
         console.log("Carrito:", cart)
         console.log("Total:", currencyFormat(total))
         console.log("Direccion:", direccion)
+        console.log("Pago:", pago)
     }
 
     return (
@@ -27,29 +29,25 @@ const PucharseDetail = () => {
             <View style={styles.screenContainer}>
                 <View style={styles.detalle}>
                     <Text style={styles.tituloDetalle}>Detalles del pedido</Text>
-                    <View>
-                        <Text>Total: </Text>
+                    <View style={styles.totalContainer}>
+                        <Text style={styles.totalText}>Total: </Text>
                         <Text style={styles.total}>{currencyFormat(total)}</Text>
                     </View>
                 </View>
 
-                <View style={styles.direccion}>
+                <View style={styles.detalle}>
+                    <Text style={styles.tituloDetalle}>Detalles del entrega</Text>
                     <AddressSelector onSave={(direccion)=>setDireccion(direccion)}/>
                 </View>
 
-                {/* <View style={styles.detalle}>
+                <View style={styles.detalle}>
                     <Text style={styles.tituloDetalle}>Forma de pago</Text>
-                    <View style={styles.medioPago}>
-                        <FontAwesome name="credit-card" size={32} color="black" />
-                        <Text>**** 0575 - Debito</Text>
-                    </View>
-                    <View style={styles.medioPago}>
-                        <FontAwesome name="money" size={32} color="black" />
-                        <Text>Efectivo</Text>
-                    </View>
-                </View> */}
+                    <PaymentMethodSelector onConfirm={(response)=>setPago(response)}/>
+                </View>
 
-                <Button title={"Confirmar Pedido"} onPress={() => confirmarPedido()}/>
+                <View style={styles.action}>
+                    <Button title={"Confirmar Pedido"} onPress={() => confirmarPedido()}/>
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -67,13 +65,6 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.background,
     },
 
-    total: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        padding: 10,
-    },
-
     detalle: {
         padding: 10,
     },
@@ -81,6 +72,37 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 5,
+    },
+
+    totalContainer: {
+        padding: 15,
+        borderRadius: 10,
+        gap: 5,
+
+        backgroundColor: COLORS.white,
+
+        shadowColor: COLORS.black,
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+        elevation: 3,
+
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+
+    totalText:{
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+
+    total: {
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 
     //#region Direccion
@@ -92,26 +114,21 @@ const styles = StyleSheet.create({
     },
     //#endregion
 
-    //#region Medio de pago
-    // medioPago: {
-    //     flexDirection: 'row',
-    //     alignItems: 'center',
-    //     marginVertical: 5,
-    //     gap: 10,
-
-    //     backgroundColor: COLORS.ligth_gray,
-
-    //     padding: 10,
-    //     borderRadius: 10,
-
-    //     shadowColor: COLORS.black,
-    //     shadowOffset: {
-    //         width: 0,
-    //         height: 2,
-    //     },
-    //     shadowOpacity: 0.25,
-    //     elevation: 1,
-    // },
-
+    //#region Pago
+    pago: {
+        padding: 10,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
     //#endregion
+
+    //#region Accion
+    action: {
+        width: '100%',
+        position: 'absolute',
+        bottom: 20,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
 })
