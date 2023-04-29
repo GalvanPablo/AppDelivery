@@ -13,13 +13,15 @@ import userReducer from './reducers/user.reducer';
 import categoriesReducer from './reducers/categories.reducer';
 import productsReducer from './reducers/products.reducer';
 import cartReducer from './reducers/cart.reducer';
+import pucharseReducer from './reducers/pucharse.reducer';
 
 const rootReducer = combineReducers({
     auth: authReducer,
     user: userReducer,
     categories: categoriesReducer,
     products: productsReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    pucharse: pucharseReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

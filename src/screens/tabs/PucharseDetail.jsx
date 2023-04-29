@@ -6,26 +6,39 @@ import { Header, AddressSelector, PaymentMethodSelector, Button  } from '../../c
 
 import COLORS from '../../constants/colors'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { newPurchase } from '../../store/actions/pucharse.action'
 
 const currencyFormat = (num) => num.toLocaleString("es-AR", {style: "currency", currency: "ARS", minimumFractionDigits: 2})
-const PucharseDetail = () => {
+const PucharseDetail = ({navigation}) => {
+    const userId = useSelector(state => state.auth.userId);
     const cart = useSelector(state => state.cart.list)
     const total = useSelector(state => state.cart.total)
     const [direccion, setDireccion] = React.useState(null)
     const [pago, setPago] = React.useState(null)
 
+    const dispatch = useDispatch()
+
     const confirmarPedido = () => {
-        console.log('## Confirmar Pedido')
-        console.log("Carrito:", cart)
-        console.log("Total:", currencyFormat(total))
-        console.log("Direccion:", direccion)
-        console.log("Pago:", pago)
+        if(!direccion){
+            alert('Debe seleccionar una dirección de entrega')
+            return
+        }
+        if(!pago){
+            alert('Debe seleccionar una forma de pago')
+            return
+        }
+        if(cart.length === 0 || total === 0){
+            alert('Debe agregar productos al carrito')
+            return
+        }
+
+        dispatch(newPurchase(cart, total, direccion, pago, userId, navigation))
     }
 
     return (
         <SafeAreaView style={styles.screen}>
-            <Header title="Detalles del pedido" goBack/>
+            <Header title="Confirmación del pedido" goBack/>
             <View style={styles.screenContainer}>
                 <View style={styles.detalle}>
                     <Text style={styles.tituloDetalle}>Detalles del pedido</Text>

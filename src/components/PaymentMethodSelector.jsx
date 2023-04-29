@@ -26,12 +26,10 @@ const PaymentMethodSelector = ({onConfirm}) => {
 
     const confirm = () => {
         if(method === paymentMethods.EFECTIVO){
-            console.log("Efectivo")
             onConfirm({
                 method: paymentMethods.EFECTIVO
             })
         } else if(method === paymentMethods.TARJETA){
-            console.log("Tarjeta")
             if(!cardNumber.isValid || !cardName.isValid || !cardExpiration.isValid || !cardSecurityCode.isValid){
                 alert("Complete los campos")
                 return

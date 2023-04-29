@@ -16,6 +16,8 @@ import MapPreview from "./MapPreview";
 
 import PaymentMethodSelector from "./PaymentMethodSelector";
 
+import ItemPucharse from "./ItemPucharse";
+
 export {
     AdvanceInput,
     Button,
@@ -33,5 +35,7 @@ export {
     AddressSelector,
     MapPreview,
 
-    PaymentMethodSelector
+    PaymentMethodSelector,
+
+    ItemPucharse
 };
