@@ -7,6 +7,14 @@ import MapView, { Marker } from 'react-native-maps'
 import * as Location from 'expo-location'
 
 import { MAP_KEY } from '../constants/keys'
+import MapPreview from './MapPreview'
+
+// const shortAddres = (ad) => {
+//     if(!ad) return ''
+//     let index = ad.indexOf(',');
+//     index = ad.indexOf(',', index + 1);
+//     return ad.substring(0, index);
+// }
 
 const AddressSelector = ({onSave}) => {
     const [selectedLocation, setSelectedLocation] = React.useState(null)
@@ -104,15 +112,25 @@ const AddressSelector = ({onSave}) => {
 
     return (
         <>
-            <Pressable style={styles.container} onPress={()=>openModal()}>
-                { !selectedLocation
-                    ? <Text style={styles.text}>Seleccionar Ubicación</Text>
-                    : <View>
-                        <Text style={styles.text}>{selectedLocation.lat}, {selectedLocation.lng}</Text>
-                        <Text style={styles.text}>{address}</Text>
+            { !selectedLocation
+                ? <Pressable style={styles.container} onPress={()=>openModal()}>
+                    <Text style={styles.text}>Seleccionar Ubicación</Text>
+                </Pressable>
+                : <View style={styles.container}>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <View>
+                            <Text style={styles.street}> {address?.split(",")[0]}</Text>
+                            <Text style={styles.city}>{address?.split(",")[1]}</Text>
+                        </View>
+                        <Pressable onPress={()=>openModal()}>
+                            <FontAwesome5 name="edit" size={24} color={COLORS.dark_gray} />
+                        </Pressable>
                     </View>
-                }
-            </Pressable>
+                    <View style={styles.mapContainer}>
+                        <MapPreview location={selectedLocation} mapStyle={styles.minimap} />
+                    </View>
+                </View>
+            }
 
             <Modal
                 style={styles.modalContainer}
@@ -175,6 +193,34 @@ const styles = StyleSheet.create({
 
     map: {
         flex: 1,
+    },
+    mapContainer: {
+        width: '100%',
+        height: 150,
+        borderRadius: 10,
+        overflow: 'hidden',
+        marginVertical: 10,
+        alignSelf: 'center',
+    },
+    minimap: {
+        width: '100%',
+        height: '100%',
+    },
+
+    text: {
+        fontSize: 16,
+        color: COLORS.dark_gray,
+    },
+
+    street: {
+        fontSize: 16,
+        color: COLORS.black,
+        fontWeight: 'bold',
+    },
+
+    city: {
+        fontSize: 16,
+        color: COLORS.dark_gray,
     },
 
     actions: {

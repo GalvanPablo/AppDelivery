@@ -33,7 +33,9 @@ const PucharseDetail = () => {
                     </View>
                 </View>
 
-                <AddressSelector onSave={(direccion)=>setDireccion(direccion)}/>
+                <View style={styles.direccion}>
+                    <AddressSelector onSave={(direccion)=>setDireccion(direccion)}/>
+                </View>
 
                 {/* <View style={styles.detalle}>
                     <Text style={styles.tituloDetalle}>Forma de pago</Text>
@@ -81,48 +83,35 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
 
-    ubicacion: {
-        marginVertical: 5,
-        gap: 5,
-
-        backgroundColor: COLORS.ligth_gray,
-
+    //#region Direccion
+    direccion: {
         padding: 10,
-        borderRadius: 10,
-
-        shadowColor: COLORS.black,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        elevation: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignContent: 'center',
     },
+    //#endregion
 
-    ubicacionNombre: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        fontFamily: 'NunitoSans_700Bold',
-    },
+    //#region Medio de pago
+    // medioPago: {
+    //     flexDirection: 'row',
+    //     alignItems: 'center',
+    //     marginVertical: 5,
+    //     gap: 10,
 
-    medioPago: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 5,
-        gap: 10,
+    //     backgroundColor: COLORS.ligth_gray,
 
-        backgroundColor: COLORS.ligth_gray,
+    //     padding: 10,
+    //     borderRadius: 10,
 
-        padding: 10,
-        borderRadius: 10,
+    //     shadowColor: COLORS.black,
+    //     shadowOffset: {
+    //         width: 0,
+    //         height: 2,
+    //     },
+    //     shadowOpacity: 0.25,
+    //     elevation: 1,
+    // },
 
-        shadowColor: COLORS.black,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        elevation: 1,
-    },
-
+    //#endregion
 })

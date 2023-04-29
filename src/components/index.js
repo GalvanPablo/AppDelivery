@@ -12,6 +12,7 @@ import QuantitySelector from "./QuantitySelector";
 import ItemCart from "./ItemCart";
 
 import AddressSelector from "./AddressSelector";
+import MapPreview from "./MapPreview";
 
 export {
     AdvanceInput,
@@ -27,5 +28,6 @@ export {
 
     ItemCart,
 
-    AddressSelector
+    AddressSelector,
+    MapPreview
 };
