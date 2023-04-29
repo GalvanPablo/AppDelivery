@@ -8,14 +8,18 @@ import COLORS from '../../constants/colors'
 
 import { useSelector } from 'react-redux'
 
-import { FontAwesome } from '@expo/vector-icons';
-
 const currencyFormat = (num) => num.toLocaleString("es-AR", {style: "currency", currency: "ARS", minimumFractionDigits: 2})
 const PucharseDetail = () => {
-    const cart = useSelector(state => state.cart.cart)
+    const cart = useSelector(state => state.cart.list)
     const total = useSelector(state => state.cart.total)
+    const [direccion, setDireccion] = React.useState(null)
 
-    const [direcciones, setDirecciones] = React.useState([])
+    const confirmarPedido = () => {
+        console.log('## Confirmar Pedido')
+        console.log("Carrito:", cart)
+        console.log("Total:", currencyFormat(total))
+        console.log("Direccion:", direccion)
+    }
 
     return (
         <SafeAreaView style={styles.screen}>
@@ -29,19 +33,7 @@ const PucharseDetail = () => {
                     </View>
                 </View>
 
-                {/* <View style={styles.detalle}>
-                    <Text style={styles.tituloDetalle}>Detalle de la entrega</Text>
-                    <View style={styles.ubicacion}>
-                        <Text style={styles.ubicacionNombre}>CASA</Text>
-                        <Text style={styles.ubicacionDireccion}>Av. Siempre Viva 742</Text>
-                        <Text style={styles.ubicacionDetalle}>Porton negro</Text>
-                    </View>
-                    <View style={styles.ubicacion}>
-                        <Text>Nueva dirección</Text>
-                    </View>
-                </View> */}
-
-                <AddressSelector />
+                <AddressSelector onSave={(direccion)=>setDireccion(direccion)}/>
 
                 {/* <View style={styles.detalle}>
                     <Text style={styles.tituloDetalle}>Forma de pago</Text>
@@ -55,7 +47,7 @@ const PucharseDetail = () => {
                     </View>
                 </View> */}
 
-                <Button title={"Confirmar Pedido"} onPress={() => console.log('Confirmar Pedido')}/>
+                <Button title={"Confirmar Pedido"} onPress={() => confirmarPedido()}/>
             </View>
         </SafeAreaView>
     )

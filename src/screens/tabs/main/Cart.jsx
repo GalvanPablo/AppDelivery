@@ -34,7 +34,6 @@ const Cart = ({navigation}) => {
                             <FontAwesome name="trash-o" size={24} color="black" />
                         </Pressable>
                         <Button title={"Realizar Pedido"} onPress={() => {
-                            console.log('Realizar Pedido')
                             navigation.navigate("PucharseDetail")
                         }}/>
                     </View>

@@ -1,17 +1,18 @@
 import React from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
-
-import * as Location from 'expo-location'
-
+import { Pressable, StyleSheet, Modal, Text, View } from 'react-native'
+import { FontAwesome5 } from '@expo/vector-icons';
 import COLORS from '../constants/colors'
 
-import { useNavigation } from '@react-navigation/native'
-import MapScreen from '../screens/tabs/MapScreen'
+import MapView, { Marker } from 'react-native-maps'
+import * as Location from 'expo-location'
 
-const AddressSelector = ({onLocation}) => {
-    const navigation = useNavigation()
+import { MAP_KEY } from '../constants/keys'
+
+const AddressSelector = ({onSave}) => {
+    const [selectedLocation, setSelectedLocation] = React.useState(null)
     const [address, setAddress] = React.useState(null)
 
+    // VERIFICAR PERMISOS DE UBICACIÓN
     const verifyPermissions = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync()
         if (status !== 'granted') {
@@ -21,24 +22,129 @@ const AddressSelector = ({onLocation}) => {
         return true
     }
 
+    // OBTENER UBICACIÓN ACTUAL
     const getLocation = async () => {
-        const isLocationOk = await verifyPermissions()
-        if (!isLocationOk) return
-
         const location = await Location.getCurrentPositionAsync({
             timeout: 5000
         })
-
-        navigation.navigate('MapScreen', {initialCoords: {lat: location.coords.latitude, lng: location.coords.longitude}})
+        setSelectedLocation({
+            lat: location.coords.latitude,
+            lng: location.coords.longitude
+        })
     }
 
+    // SELECCIONAR UBICACIÓN EN EL MAPA
+    const handleSelectLocation = event => {
+        setSelectedLocation({
+            lat: event.nativeEvent.coordinate.latitude,
+            lng: event.nativeEvent.coordinate.longitude
+        })
+    }
+
+
+    // MANEJO DEL MODAL
+    const [modalVisible, setModalVisible] = React.useState(false)
+    const openModal = async () => {
+        const isLocationOk = await verifyPermissions()
+        if (!isLocationOk) return
+
+        if(!selectedLocation) getLocation()
+        setModalVisible(true)
+    }
+
+    const handleSave = () => {
+        if(selectedLocation){
+            setModalVisible(false)
+        }
+    }
+
+    // MANEJO DE MAPA
+    const initialRegion = {
+        latitude: selectedLocation?.lat || -34.603722,
+        longitude: selectedLocation?.lng || -58.381592,
+        latitudeDelta: selectedLocation ? 0.01 : 0.085,
+        longitudeDelta: selectedLocation ? 0.01 : 0.035,
+    }
+
+    // DESPLAZAR MAPA A LA UBICACIÓN SELECCIONADA
+    const mapViewRef = React.useRef(null);
+    const [mapOnLayout, setMapOnLayout] = React.useState(false)
+    React.useEffect(() => {
+        if(mapOnLayout){
+            mapViewRef.current.animateToRegion({
+                latitude: selectedLocation.lat,
+                longitude: selectedLocation.lng,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
+            }, 500) 
+        }
+        getAddress()
+    }, [selectedLocation])
+
+    // OBTENER DIRECCIÓN
+    
+    const getAddress = async () => {
+        if(!selectedLocation) return
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${selectedLocation.lat},${selectedLocation.lng}&key=${MAP_KEY}`)
+        if(!response.ok) throw new Error('No se pudo completar la solicitud')
+        const data = await response.json()
+        if(!data.results) throw new Error('Error al obtener la dirección')
+        setAddress(data.results[0].formatted_address)
+    }
+
+    // DEVOLVER UBICACIÓN
+    React.useEffect(() => {
+        if(!selectedLocation) return
+        onSave({
+            lat: selectedLocation.lat,
+            lng: selectedLocation.lng,
+            address: address
+        })
+    }, [selectedLocation, address])
+
     return (
-        <Pressable style={styles.container} onPress={async () => {getLocation()}}>
-            {!address
-                ? <Text>Seleccionar Ubicación</Text>
-                : <Text>Direccion Obtenida</Text>
-            }
-        </Pressable>
+        <>
+            <Pressable style={styles.container} onPress={()=>openModal()}>
+                { !selectedLocation
+                    ? <Text style={styles.text}>Seleccionar Ubicación</Text>
+                    : <View>
+                        <Text style={styles.text}>{selectedLocation.lat}, {selectedLocation.lng}</Text>
+                        <Text style={styles.text}>{address}</Text>
+                    </View>
+                }
+            </Pressable>
+
+            <Modal
+                style={styles.modalContainer}
+                visible={modalVisible}
+                animationType="slide"
+            >
+                <MapView
+                    ref={mapViewRef}
+                    initialRegion={initialRegion}
+                    style={styles.map}
+                    provider='google'
+                    onPress={handleSelectLocation}
+                    onLayout={()=>setMapOnLayout(true)}
+                >
+                    { selectedLocation &&
+                        <Marker
+                            title={'Ubicación Seleccionada'}
+                            coordinate={{ latitude: selectedLocation.lat, longitude: selectedLocation.lng }}
+                        />
+                    }
+                    
+                </MapView>
+                <View style={styles.actions}>
+                    <Pressable style={styles.btnLocation} onPress={()=>getLocation()}>
+                        <FontAwesome5 name="crosshairs" size={24} color="dodgerblue" />
+                    </Pressable>
+                    <Pressable style={styles.btnSave} onPress={()=>handleSave()}>
+                        <FontAwesome5 name="check" size={28} color="dodgerblue" />
+                    </Pressable>
+                </View>
+            </Modal>
+        </>
     )
 }
 
@@ -61,5 +167,44 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         elevation: 1,
+    },
+
+    modalContainer: {
+        flex: 1,
+    },
+
+    map: {
+        flex: 1,
+    },
+
+    actions: {
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        gap: 10
+    },
+
+    btnLocation: {
+        width: 45,
+        height: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+        backgroundColor: 'white',
+        borderRadius: 50,
+        elevation: 2
+    },
+
+    btnSave: {
+        width: 55,
+        height: 55,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+        backgroundColor: 'white',
+        borderRadius: 50,
+        elevation: 2
     }
 })

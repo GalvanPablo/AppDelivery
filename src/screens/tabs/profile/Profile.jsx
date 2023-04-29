@@ -38,7 +38,6 @@ const Profile = () => {
             </View>
 
             <Button title="Cerrar Sesión" styleBtn={styles.logout} onPress={() => {
-                console.log('logout')
                 dispatch(logout())
             }}/>
         </SafeAreaView>
