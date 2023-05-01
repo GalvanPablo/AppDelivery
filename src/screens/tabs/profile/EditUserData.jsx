@@ -6,6 +6,9 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserData } from '../../../store/actions/user.action';
+import { ActivityIndicator } from 'react-native';
+
+import COLORS from '../../../constants/colors';
 
 const EditUserData = () => {
     const dispatch = useDispatch()
@@ -25,51 +28,49 @@ const EditUserData = () => {
         dispatch(updateUserData(userId, nombre.value, telefono.value, image))
     }
 
+    const [loading, setLoading] = React.useState(true)
+    React.useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
+    }, [])
+
     return (
         <SafeAreaView style={styles.screen}>
-            <ImageSelector onImage={setImage}/>
-            <Text style={styles.email}>{email}</Text>
-            <View style={styles.inputContainer}>
-                <AdvanceInput
-                    type='text'
-                    placeholder={'Nombre'}
-                    onInputChange={(data) => setNombre(data)}
-                    required
-                    errorPosition='top'
-                    inputStyle={{
-                        borderWidth: 0,
-                        borderBottomWidth: 1,
-                    }}
-                />
-                <AdvanceInput
-                    type='phone'
-                    placeholder={'Telefono'}
-                    onInputChange={(data) => setTelefono(data)}
-                    errorPosition='top'
-                    inputStyle={{
-                        borderWidth: 0,
-                        borderBottomWidth: 1,
-                    }}
-                />
-                {/* <View style={styles.directions}>
-                    <View style={styles.addDirection}>
-                        <Text>Direcciones</Text>
-                        <Pressable>
-                            <FontAwesome5 name="plus" size={24} color="black" />
-                        </Pressable>
+            { loading
+                ? <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                    <ActivityIndicator size={'large'} color={COLORS.primary} />
+                    <Text>Cargando...</Text>
+                </View>
+                : <>
+                    <ImageSelector onImage={setImage}/>
+                    <Text style={styles.email}>{email}</Text>
+                    <View style={styles.inputContainer}>
+                        <AdvanceInput
+                            type='text'
+                            placeholder={'Nombre'}
+                            onInputChange={(data) => setNombre(data)}
+                            required
+                            errorPosition='top'
+                            inputStyle={{
+                                borderWidth: 0,
+                                borderBottomWidth: 1,
+                            }}
+                        />
+                        <AdvanceInput
+                            type='phone'
+                            placeholder={'Telefono'}
+                            onInputChange={(data) => setTelefono(data)}
+                            errorPosition='top'
+                            inputStyle={{
+                                borderWidth: 0,
+                                borderBottomWidth: 1,
+                            }}
+                        />
+                        <Button title='Guardar' onPress={()=>handleSave()}/>
                     </View>
-                    <FlatList
-                        data={direcciones}
-                        renderItem={({item}) => (
-                            <View>
-                                <Text>{item}</Text>
-                            </View>
-                        )}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                </View> */}
-                <Button title='Guardar' onPress={()=>handleSave()}/>
-            </View>
+                </>
+            }
         </SafeAreaView>
     )
 }
