@@ -11,6 +11,7 @@ import { EditUserData } from '../screens/tabs/profile'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../store/actions/categories.action'
 import { getProducts } from '../store/actions/products.action'
+import { getPurcharse } from '../store/actions/pucharse.action'
 
 const MainNav = () => {
     const dispatch = useDispatch()
@@ -19,10 +20,18 @@ const MainNav = () => {
     const user = useSelector(state => state.user)
     const userHaveData = (user.nombre === '' || user.apellido === '') ? false : true
 
+    const userId = useSelector(state => state.auth.userId)
+
     React.useEffect(() => {
         dispatch(getCategories())
         dispatch(getProducts())
     }, [])
+
+    React.useEffect(() => {
+        if (userId) {
+            dispatch(getPurcharse(userId))
+        }
+    }, [userId])
 
 
     const isAuthenticated = token ? true : false

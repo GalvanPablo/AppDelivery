@@ -17,7 +17,6 @@ const ProductItem = ({producto}) => {
         dispatch(getProductDetail(producto.id))
         navigation.navigate('ProductDetail')
     }
-
     return (
         <Pressable style={styles.container} onPress={()=>handleOnPressItem(producto)}>
             <View style={styles.imageContainer} >
@@ -25,7 +24,7 @@ const ProductItem = ({producto}) => {
             </View>
             <View style={styles.info} >
                 <Text style={styles.name}>{producto.nombre}</Text>
-                <Text style={styles.price}>{currencyFormat(producto.precio)}</Text>
+                {/* <Text style={styles.price}>{currencyFormat(producto.precio)}</Text> */}
             </View>
         </Pressable>
     )

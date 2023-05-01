@@ -68,13 +68,13 @@ export const login = (email, password) => async dispatch => {
             throw new Error(message);
         }
         const data = await response.json();
-        dispatch(getUserData(data.localId));
         dispatch({
             type: LOGIN,
             token: data.idToken,
             userId: data.localId,
             email: data.email
         });
+        dispatch(getUserData(data.localId));
     } catch (error) {
         console.error(error);
     }
@@ -82,8 +82,8 @@ export const login = (email, password) => async dispatch => {
 
 export const LOGOUT = 'LOGOUT';
 export const logout = () => async dispatch => {
-    dispatch(deleteUserData());
     dispatch({
         type: LOGOUT
     });
+    dispatch(deleteUserData());
 }

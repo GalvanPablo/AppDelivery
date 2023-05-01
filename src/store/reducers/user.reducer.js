@@ -1,4 +1,4 @@
-import { GET_USER_DATA, DELETE_USER_DATA, ADD_FAVORITE, REMOVE_FAVORITE } from "../actions/user.action";
+import { GET_USER_DATA, DELETE_USER_DATA, ADD_FAVORITE, REMOVE_FAVORITE, GET_FAVORITES } from "../actions/user.action";
 
 const initialState = {
     nombre: "",
@@ -16,7 +16,6 @@ const userReducer = (state = initialState, action) => {
                 nombre: action.nombre,
                 telefono: action.telefono,
                 foto: action.foto || null,
-                direcciones: action.direcciones || null,
                 favoritos: action.favoritos || []
             }
         case DELETE_USER_DATA:
@@ -27,23 +26,13 @@ const userReducer = (state = initialState, action) => {
                 direcciones: [],
                 favoritos: [],
             }
-        
-        case ADD_FAVORITE:
-            const index = state.favoritos.findIndex(fav => fav === action.productoId);
-            if(index >= 0){
-                return state;
-            } else {
-                return {
-                    ...state,
-                    favoritos: [...state.favoritos, action.productoId]
-                }
-            }
-        
-        case REMOVE_FAVORITE:
+
+        case GET_FAVORITES:
             return {
                 ...state,
-                favoritos: state.favoritos.filter(fav => fav !== action.productoId)
+                favoritos: action.favoritos || []
             }
+
         default:
             return state;
     }

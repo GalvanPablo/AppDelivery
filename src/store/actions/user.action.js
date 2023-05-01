@@ -25,8 +25,8 @@ export const getUserData = (userId) => async dispatch => {
                 nombre: data.nombre,
                 telefono: data.telefono,
                 foto: data.foto,
-                direcciones: data.direcciones
-            });   
+            });
+            dispatch(getFavorites());
         }
 
     }catch(error){
@@ -36,7 +36,7 @@ export const getUserData = (userId) => async dispatch => {
 }
 
 export const UPDATE_USER_DATA = 'UPDATE_USER_DATA';
-export const updateUserData = (userId, nombre, telefono, foto, direcciones) => async dispatch => {
+export const updateUserData = (userId, nombre, telefono, foto) => async dispatch => {
     try{
         const response = await fetch(`${API_URL}usuarios/${userId}.json`, {
             method: 'PATCH',
@@ -47,7 +47,6 @@ export const updateUserData = (userId, nombre, telefono, foto, direcciones) => a
                 nombre,
                 telefono,
                 foto,
-                direcciones
             })
         });
         
@@ -66,7 +65,6 @@ export const updateUserData = (userId, nombre, telefono, foto, direcciones) => a
                 nombre,
                 telefono,
                 foto,
-                direcciones
             });
             dispatch(getUserData(userId));  
         }
@@ -82,15 +80,132 @@ export const deleteUserData = () => ({
     type: DELETE_USER_DATA,
 });
 
+export const GET_FAVORITES = 'GET_FAVORITES';
+export const getFavorites = () => async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    if(!userId){
+        return;
+    }
+
+    try{
+        const response = await fetch(`${API_URL}usuarios/${userId}/favoritos.json`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if(!response.ok){
+            const errorResData = await response.json();
+            const errorId = errorResData.error.message;
+            let message = 'Algo salió mal!';
+            throw new Error(message, errorId);
+        }
+
+        // console.log("getFavorites - response: ", response);
+
+        const data = await response.json();
+
+        if(data){
+            dispatch({
+                type: GET_FAVORITES,
+                favoritos: data
+            });
+        }
+
+    }catch(error){
+        console.error(error);
+        console.log("Error en getFavorites")
+    }
+}
+
 
 export const ADD_FAVORITE = 'ADD_FAVORITE';
-export const addFavorite = (productoId) => ({
-    type: ADD_FAVORITE,
-    productoId
-});
+export const addFavorite = (productoId) => async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    if(!userId){
+        return;
+    }
+
+    const favoritos = getState().user.favoritos;
+    if(favoritos.includes(productoId)){
+        console.log("Añadir - Ya existe en favoritos");
+        return;
+    }else
+    console.log("Añadir - No existe en favoritos");
+
+    try{
+        console.log("Añadiendo a favoritos");
+        favoritos.push(productoId);
+        const response = await fetch(`${API_URL}usuarios/${userId}/favoritos.json`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(favoritos)
+        });
+
+        if(!response.ok){
+            const errorResData = await response.json();
+            const errorId = errorResData.error.message;
+            let message = 'Algo salió mal!';
+            throw new Error(message, errorId);
+        }
+
+        if(response.ok && response.status === 200){
+            console.log("Añadido a favoritos")
+            dispatch(getFavorites());
+        }
+
+    }catch(error){
+        console.error(error);
+        console.log("Error en addFavorite")
+    }
+};
+
 
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
-export const removeFavorite = (productoId) => ({
-    type: REMOVE_FAVORITE,
-    productoId
-});
+export const removeFavorite = (productoId) => async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    if(!userId){
+        console.log("No hay userId");
+        return;
+    }
+
+    const favoritos = getState().user.favoritos;
+    const favIndex = favoritos.findIndex(fav => fav === productoId);
+    if(favIndex < 0){
+        console.log("Eliminar - No existe en favoritos");
+        return;
+    }
+    console.log("Eliminar - Si existe en favoritos")
+    
+
+    try{
+        console.log("Eliminando de favoritos");
+        favoritos.splice(favIndex, 1);
+        const response = await fetch(`${API_URL}usuarios/${userId}/favoritos.json`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(favoritos)
+        });
+
+        if(!response.ok){
+            const errorResData = await response.json();
+            const errorId = errorResData.error.message;
+            let message = 'Algo salió mal!';
+            throw new Error(message, errorId);
+        }
+
+        if(response.ok && response.status === 200){
+            console.log("Eliminado de favoritos")
+            dispatch(getFavorites());
+        }
+
+    }catch(error){
+        console.error(error);
+        console.log("Error en addFavorite")
+    }
+}

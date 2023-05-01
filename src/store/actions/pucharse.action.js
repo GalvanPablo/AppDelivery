@@ -35,7 +35,9 @@ export const getPurcharse = (userId) => async (dispatch) => {
                     date: date
                 });
             }
-            pucharses.sort((a, b) => {return new Date(b.date) - new Date(a.date)});
+
+            pucharses.sort((a, b) => { return b.date - a.date });
+            pucharses.reverse();
             
             dispatch({
                 type: GET_PURCHASES,

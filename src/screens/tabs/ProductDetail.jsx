@@ -16,20 +16,22 @@ const currencyFormat = (num) => num.toLocaleString("es-AR", {style: "currency", 
 const ProductDetail = ({navigation}) => {
     const dispatch = useDispatch()
     const producto = useSelector(state => state.products.detalleProducto)
-
-    const fav = useSelector(state => state.user.favoritos).some(f => f === producto.id)
-    React.useLayoutEffect(() => {
-        setFavorito(fav)
-    }, [fav])
+    const favoritos = useSelector(state => state.user.favoritos)
 
     const [favorito, setFavorito] = React.useState(false)
+
+    React.useEffect(() => {
+        setFavorito(favoritos.includes(producto.id))
+    }, [favoritos, producto])
+
     const handleFavorite = () => {
         if (favorito) {
+            setFavorito(false)
             dispatch(removeFavorite(producto.id))
         } else {
+            setFavorito(true)
             dispatch(addFavorite(producto.id))
         }
-        setFavorito(!favorito)
     }
 
     const [cantidad, setCantidad] = React.useState(1)
@@ -47,11 +49,11 @@ const ProductDetail = ({navigation}) => {
                 <View style={styles.imageContainer}>
                     <Image source={{uri: producto.imagen}} style={styles.image}/>
                     <Pressable style={styles.favoriteButton}
-                        onPress={() => setFavorito(!favorito)}
+                        onPress={() => handleFavorite()}
                     >
                         {favorito
-                            ? <FontAwesome name="heart" size={28} color={COLORS.primary} onPress={() => handleFavorite()} />
-                            : <FontAwesome5 name="heart" size={28} color={COLORS.dark_gray} onPress={() => handleFavorite()} />
+                            ? <FontAwesome name="heart" size={28} color={COLORS.primary} />
+                            : <FontAwesome5 name="heart" size={28} color={COLORS.dark_gray} />
                         }
                     </Pressable>
                 </View>
