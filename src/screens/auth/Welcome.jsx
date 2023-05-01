@@ -30,6 +30,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     container: {
+        position: 'absolute',
+        bottom: 45,
         gap: 10,
     },
     account: {
@@ -42,5 +44,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'regular',
         fontFamily: 'NunitoSans_400Regular',
+
+        shadowColor: COLORS.black,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+
+        elevation: 5,
     }
 })

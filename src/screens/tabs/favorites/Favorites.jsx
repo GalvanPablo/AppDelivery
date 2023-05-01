@@ -27,13 +27,10 @@ const Favorites = ({navigation}) => {
             <Header title={"Favoritos"} goCart/>
             <View style={styles.screenContainer}>
                 {listFav.length === 0
-                    ? <Text>No hay favoritos</Text>
+                    ? <Text style={styles.text}>No hay favoritos</Text>
                     : <ProductList products={listFav} />
                 }
             </View>
-            <Button title="Eliminar todos los favoritos" onPress={() => dispatch({type: 'GET_FAVORITES', favoritos: []})}/>
-            <Button title="Obtener favoritos" onPress={() => dispatch(getFavorites())} styleBtn={{backgroundColor: '#555555'}}/>
-            <Button title="Ver favoritos" onPress={() => console.log(favoritos)} styleBtn={{backgroundColor: '#333333'}}/>
         </SafeAreaView>
     )
 }
@@ -49,4 +46,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.background,
     },
+    text: {
+        textAlign: 'center',
+        marginTop: 20,
+        fontSize: 20,
+        color: colors.black,
+    }
 })

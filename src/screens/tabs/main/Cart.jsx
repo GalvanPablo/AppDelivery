@@ -20,14 +20,13 @@ const Cart = ({navigation}) => {
         <SafeAreaView style={styles.screen}>
             <Header title={"Carrito"} goBack/>
             <View style={styles.screenContainer}>
-                <FlatList
-                    data={cart}
-                    renderItem={({item}) => <ItemCart item={item}/> }
-                    keyExtractor={item => item.product.id}
-                    style={{padding: 10}}
-                />
-
-                {cart.length > 0 && <>
+                {cart.length > 0 ? <>
+                    <FlatList
+                        data={cart}
+                        renderItem={({item}) => <ItemCart item={item}/> }
+                        keyExtractor={item => item.product.id}
+                        style={{padding: 10}}
+                    />
                     <Text style={styles.total}>Total: {currencyFormat(total)}</Text>
                     <View style={styles.actionsContainer}>
                         <Pressable style={styles.clearCart}  onPress={() => dispatch(clearCart())}>
@@ -37,7 +36,9 @@ const Cart = ({navigation}) => {
                             navigation.navigate("PucharseDetail")
                         }}/>
                     </View>
-                </>}
+                </>
+                : <Text style={styles.text}>No hay productos en el carrito</Text>
+                }
             </View>
         </SafeAreaView>
     )
@@ -74,4 +75,11 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
     },
+
+    text: {
+        textAlign: 'center',
+        marginTop: 20,
+        fontSize: 20,
+        color: COLORS.black,
+    }
 })

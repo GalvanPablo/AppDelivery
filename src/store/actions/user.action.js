@@ -102,8 +102,6 @@ export const getFavorites = () => async (dispatch, getState) => {
             throw new Error(message, errorId);
         }
 
-        // console.log("getFavorites - response: ", response);
-
         const data = await response.json();
 
         if(data){
@@ -129,13 +127,10 @@ export const addFavorite = (productoId) => async (dispatch, getState) => {
 
     const favoritos = getState().user.favoritos;
     if(favoritos.includes(productoId)){
-        console.log("Añadir - Ya existe en favoritos");
         return;
     }else
-    console.log("Añadir - No existe en favoritos");
 
     try{
-        console.log("Añadiendo a favoritos");
         favoritos.push(productoId);
         const response = await fetch(`${API_URL}usuarios/${userId}/favoritos.json`, {
             method: 'PUT',
@@ -153,7 +148,7 @@ export const addFavorite = (productoId) => async (dispatch, getState) => {
         }
 
         if(response.ok && response.status === 200){
-            console.log("Añadido a favoritos")
+            alert("Producto agregado a favoritos");
             dispatch(getFavorites());
         }
 
@@ -168,21 +163,17 @@ export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
 export const removeFavorite = (productoId) => async (dispatch, getState) => {
     const userId = getState().auth.userId;
     if(!userId){
-        console.log("No hay userId");
         return;
     }
 
     const favoritos = getState().user.favoritos;
     const favIndex = favoritos.findIndex(fav => fav === productoId);
     if(favIndex < 0){
-        console.log("Eliminar - No existe en favoritos");
         return;
     }
-    console.log("Eliminar - Si existe en favoritos")
     
 
     try{
-        console.log("Eliminando de favoritos");
         favoritos.splice(favIndex, 1);
         const response = await fetch(`${API_URL}usuarios/${userId}/favoritos.json`, {
             method: 'PUT',
@@ -200,9 +191,9 @@ export const removeFavorite = (productoId) => async (dispatch, getState) => {
         }
 
         if(response.ok && response.status === 200){
-            console.log("Eliminado de favoritos")
-            dispatch(getFavorites());
+            alert("Producto eliminado de favoritos");
         }
+        dispatch(getFavorites());
 
     }catch(error){
         console.error(error);
