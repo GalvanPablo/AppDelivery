@@ -21,11 +21,15 @@ const History = () => {
         <SafeAreaView style={styles.screen}>
             <Header title={"Historial"}/>
             <View style={styles.screenContainer}>
-                <FlatList
-                    data={pucharses}
-                    renderItem={({ item }) => <ItemPucharse pucharse={item} />}
-                    keyExtractor={item => item.id}
-                />
+                { pucharses.length > 0
+                    ? <FlatList
+                        data={pucharses}
+                        renderItem={({ item }) => <ItemPucharse pucharse={item} />}
+                        keyExtractor={item => item.id}
+                        style={{marginTop: 10}}
+                    />
+                    : <Text style={styles.text}>No hay compras</Text>
+                }
             </View>
         </SafeAreaView>
     )
@@ -42,4 +46,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.background,
     },
+    text: {
+        textAlign: 'center',
+        marginTop: 20,
+        fontSize: 20,
+        color: colors.black,
+    }
 })
