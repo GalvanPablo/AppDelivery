@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "delivery",
-    "slug": "delivery",
+    "name": "Express Delivery",
+    "slug": "express-delivery",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,35 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDYj9CedklgFt4eXXt9yFgxMWFouGEdzZU"
+        },
+        "firebase": {
+          "apiKey": "AIzaSyB1acgYZjCups7PxUyfZMmCQde4t5oboAg"
+        }
+      },
+      "package": "com.pablogalvan.expressdelivery"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f9326d71-ea79-4c46-a158-21fe68b124c9"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/f9326d71-ea79-4c46-a158-21fe68b124c9"
     }
   }
 }
